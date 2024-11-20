@@ -6,7 +6,7 @@ using VotaE_API.ViewModel.Usuario;
 
 namespace VotaE_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/usuario")]
     [ApiController]
     public class UsuarioController : Controller
     {
@@ -25,7 +25,7 @@ namespace VotaE_API.Controllers
         {
             var usuarios = _usuarioService.GetAllUsuarios();
 
-            if (usuarios != null)
+            if (usuarios != null && usuarios.Any())
             {
                 var viewModelList = _mapper.Map<IEnumerable<UsuarioModel>>(usuarios);
 
@@ -44,7 +44,7 @@ namespace VotaE_API.Controllers
 
             if (usuario != null)
             {
-                var viewModel = _mapper.Map<IEnumerable<UsuarioModel>>(usuario);
+                var viewModel = _mapper.Map<UsuarioModel>(usuario);
 
                 return Ok(viewModel);
             }
@@ -61,14 +61,17 @@ namespace VotaE_API.Controllers
             var model = _mapper.Map<UsuarioModel>(viewModel);
             _usuarioService.AddUsuario(model);
 
-            return CreatedAtAction(nameof(Create), new { id = model.UsuarioId }, model);
+            return CreatedAtAction(nameof(GetUsuarioById), new { id = model.UsuarioId }, model);
         }
 
-        [HttpPost("{id}")]
-        public ActionResult UpdateUsuario([FromRoute] int id, [FromBody] UsuarioModel viewModel)
+        [HttpPut("{id}")]
+        public ActionResult UpdateUsuario([FromRoute] int id, [FromBody] UsuarioViewModel viewModel)
         {
+            if (viewModel.UsuarioId != id) // verificar com a JU, se faz sentido usr PUT ou PATCH
+                return BadRequest("O ID da rota não corresponde ao ID do objeto enviado.");
 
-            if (viewModel.UsuarioId == id) //verificar 
+
+            if (viewModel.UsuarioId == id) 
             {
                 var model = _mapper.Map<UsuarioModel>(viewModel);
                 _usuarioService.UpdateUsuario(model);
@@ -84,7 +87,10 @@ namespace VotaE_API.Controllers
         [HttpDelete("{id}")]
         public ActionResult DeleteUsuario([FromRoute] int id)
         {
-            _usuarioService.Delete(id);
+            var result = _usuarioService.Delete(id);
+
+            if (!result)
+                return NotFound($"Usuário com ID {id} não encontrado.");
 
             return NoContent();
         }

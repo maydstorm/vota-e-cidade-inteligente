@@ -8,6 +8,6 @@ namespace VotaE_API.Interface
         UsuarioModel GetUsuarioById(int Id);
         void AddUsuario(UsuarioModel usuario);
         void UpdateUsuario(UsuarioModel usuario);
-        void Delete(int id);
+        bool Delete(int id);
     }
 }

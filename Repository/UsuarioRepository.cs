@@ -1,4 +1,5 @@
-﻿using VotaE_API.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using VotaE_API.Data;
 using VotaE_API.Interface;
 using VotaE_API.Models;
 
@@ -31,10 +32,17 @@ namespace VotaE_API.Repository
             _dbContext.SaveChanges();
         }
 
-        public void Delete(UsuarioModel usuario)
+        public bool Delete(int id)
         {
+            var usuario = _dbContext.Usuarios.FirstOrDefault(u => u.UsuarioId == id);
+
+            if (usuario == null)
+                return false; 
+
             _dbContext.Usuarios.Remove(usuario);
             _dbContext.SaveChanges();
+
+            return true;
         }
 
     }
