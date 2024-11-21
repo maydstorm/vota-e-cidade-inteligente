@@ -16,21 +16,20 @@ namespace VotaE_API.Services
 
         public UsuarioModel GetUsuarioById(int id) => _repository.GetById(id);
 
-        public void AddUsuario(UsuarioModel usuario) => _repository.Add(usuario);
+        public void AddUsuario(UsuarioModel usuario) => _repository.AddUsuario(usuario);
 
-        public void UpdateUsuario(UsuarioModel usuario) => _repository.Update(usuario);
+        public void UpdateUsuario(UsuarioModel usuario) => _repository.UpdateUsuario(usuario);
 
         public bool Delete(int id)
         {
             var usuario = _repository.GetById(id);
             if (usuario != null)
             {
-                _repository.Delete(id); /* Julia - aqui repassei o ID não o obj inteiro */
-                return true; /* Julia - se for encontrado */
+                _repository.DeleteUsuario(id); 
+                return true; 
             }
-            return false; /* Julia - se não for encontrado */
+            return false; 
         }
-
     }
 }
 

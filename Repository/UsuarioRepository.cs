@@ -19,19 +19,19 @@ namespace VotaE_API.Repository
         }
 
         public UsuarioModel GetById(int id) => _dbContext.Usuarios.Find(id);
-        public void Add(UsuarioModel usuario)
+        public void AddUsuario(UsuarioModel usuario)
         {
             _dbContext.Usuarios.Add(usuario);
             _dbContext.SaveChanges();
         }
 
-        public void Update(UsuarioModel usuario)
+        public void UpdateUsuario(UsuarioModel usuario)
         {
             _dbContext.Usuarios.Update(usuario);
             _dbContext.SaveChanges();
         }
 
-        public bool Delete(int id)
+        public bool DeleteUsuario(int id)
         {
             var usuario = _dbContext.Usuarios.FirstOrDefault(u => u.UsuarioId == id);
 

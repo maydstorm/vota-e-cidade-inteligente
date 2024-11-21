@@ -6,8 +6,8 @@ namespace VotaE_API.Interface
     {
         IEnumerable<UsuarioModel> GetAll();
         UsuarioModel GetById(int Id);
-        void Add(UsuarioModel usuario);
-        void Update(UsuarioModel usuario);
-        bool Delete(int id);
+        void AddUsuario(UsuarioModel usuario);
+        void UpdateUsuario(UsuarioModel usuario);
+        bool DeleteUsuario(int id);
     }
 }

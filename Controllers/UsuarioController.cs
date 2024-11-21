@@ -6,7 +6,7 @@ using VotaE_API.ViewModel.Usuario;
 
 namespace VotaE_API.Controllers
 {
-    [Route("api/usuario")]
+    [Route("api/usuario/")]
     [ApiController]
     public class UsuarioController : Controller
     {
@@ -67,10 +67,6 @@ namespace VotaE_API.Controllers
         [HttpPut("{id}")]
         public ActionResult UpdateUsuario([FromRoute] int id, [FromBody] UsuarioViewModel viewModel)
         {
-            if (viewModel.UsuarioId != id) // verificar com a JU, se faz sentido usr PUT ou PATCH
-                return BadRequest("O ID da rota não corresponde ao ID do objeto enviado.");
-
-
             if (viewModel.UsuarioId == id) 
             {
                 var model = _mapper.Map<UsuarioModel>(viewModel);
@@ -80,7 +76,7 @@ namespace VotaE_API.Controllers
             }
             else
             {
-                return BadRequest();
+                return BadRequest("O ID da rota não corresponde ao ID do objeto enviado.");
             }
         }
 
