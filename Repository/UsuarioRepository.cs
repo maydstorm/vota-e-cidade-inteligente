@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using VotaE_API.Data;
+﻿using VotaE_API.Data;
 using VotaE_API.Interface;
 using VotaE_API.Models;
 
