@@ -20,14 +20,17 @@ namespace VotaE_API.Services
 
         public void UpdateUsuario(UsuarioModel usuario) => _repository.Update(usuario);
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             var usuario = _repository.GetById(id);
             if (usuario != null)
             {
-                _repository.Delete(usuario);
+                _repository.Delete(id); /* Julia - aqui repassei o ID não o obj inteiro */
+                return true; /* Julia - se for encontrado */
             }
-
+            return false; /* Julia - se não for encontrado */
         }
+
     }
 }
+
