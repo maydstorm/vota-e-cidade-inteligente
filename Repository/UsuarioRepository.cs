@@ -1,4 +1,5 @@
-﻿using VotaE_API.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using VotaE_API.Data;
 using VotaE_API.Interface;
 using VotaE_API.Models;
 
@@ -19,6 +20,12 @@ namespace VotaE_API.Repository
         }
 
         public UsuarioModel GetById(int id) => _dbContext.Usuarios.Find(id);
+
+        public UsuarioModel GetByEmail(string email)
+        {
+            return _dbContext.Usuarios.FirstOrDefault(u => u.Email == email); 
+        }
+
         public void AddUsuario(UsuarioModel usuario)
         {
             _dbContext.Usuarios.Add(usuario);
