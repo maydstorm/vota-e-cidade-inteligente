@@ -31,7 +31,10 @@ namespace VotaE_API.Services
         {
             var usuarioExiste = _repository.GetById(usuario.UsuarioId);
 
-            if (usuarioExiste != null && usuarioExiste.Senha != usuario.Senha)
+            if (usuarioExiste == null)
+                throw new KeyNotFoundException("Usuário não encontrado.");
+
+            if (usuarioExiste.Senha != usuario.Senha)
             {
                 usuario.Senha = _passwordHasher.HashPassword(usuario, usuario.Senha);
             }

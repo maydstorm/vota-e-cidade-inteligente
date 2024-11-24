@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using VotaE_API.Data;
+﻿using VotaE_API.Data;
 using VotaE_API.Interface;
 using VotaE_API.Models;
 
@@ -34,7 +33,15 @@ namespace VotaE_API.Repository
 
         public void UpdateUsuario(UsuarioModel usuario)
         {
-            _dbContext.Usuarios.Update(usuario);
+            var usuarioExistente = _dbContext.Usuarios.Find(usuario.UsuarioId);
+
+            if (usuarioExistente == null)
+            {
+                throw new KeyNotFoundException("Usuário não encontrado.");
+            }
+
+            // Atualiza apenas os campos modificados
+            _dbContext.Entry(usuarioExistente).CurrentValues.SetValues(usuario);
             _dbContext.SaveChanges();
         }
 
