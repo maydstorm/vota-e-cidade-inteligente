@@ -29,11 +29,11 @@ namespace VotaE_API.Controllers
             {
                 var viewModelList = _mapper.Map<IEnumerable<UsuarioViewModel>>(usuarios);
 
-                return Ok(viewModelList);
+                return StatusCode(200, viewModelList);
             }
             else
             {
-                return NoContent();
+                return StatusCode(204);
             }
         }
 
@@ -46,11 +46,11 @@ namespace VotaE_API.Controllers
             {
                 var viewModel = _mapper.Map<UsuarioViewModel>(usuario);
 
-                return Ok(viewModel);
+                return StatusCode(200, viewModel);
             }
             else
             {
-                return NotFound();
+                return StatusCode(404);
             }
         }
 
@@ -63,13 +63,13 @@ namespace VotaE_API.Controllers
 
             return CreatedAtAction(nameof(GetUsuarioById), new { id = model.UsuarioId }, model);
         }
-
+    
         [HttpPut("{id}")]
         public IActionResult UpdateUsuario([FromRoute] int id, [FromBody] UsuarioModel viewModel)
         {
             if (id != viewModel.UsuarioId)
             {
-                return BadRequest("O ID da rota não corresponde ao ID do objeto enviado.");
+                return StatusCode(500, "O ID da rota não corresponde ao ID do objeto enviado.");
             }
 
             try
@@ -77,18 +77,16 @@ namespace VotaE_API.Controllers
                 var usuarioExistente = _usuarioService.GetUsuarioById(id);
                 if (usuarioExistente == null)
                 {
-                    return NotFound("Usuário não encontrado.");
+                    return StatusCode(404, "Usuário não encontrado.");
                 }
 
-                // Atualiza o usuário
                 var model = _mapper.Map<UsuarioModel>(viewModel);
                 _usuarioService.UpdateUsuario(model);
 
-                return NoContent(); // Atualização realizada com sucesso
+                return StatusCode(204); 
             }
             catch (Exception ex)
             {
-                // Retorno genérico em caso de falha
                 return StatusCode(500, "Erro interno do servidor ao atualizar o usuário.");
             }
         }
@@ -99,9 +97,9 @@ namespace VotaE_API.Controllers
             var result = _usuarioService.Delete(id);
 
             if (!result)
-                return NotFound($"Usuário com ID {id} não encontrado.");
+                return StatusCode(404, $"Usuário com ID {id} não encontrado.");
 
-            return NoContent();
+            return StatusCode(204);
         }
     }
 }

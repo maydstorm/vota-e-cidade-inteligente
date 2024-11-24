@@ -12,13 +12,22 @@ namespace VotaE_API.Services
             _repository = repository;
         }
 
-        public IEnumerable<SugestaoModel> GetAllSugestoes() => _repository.GetAll();
+        public IEnumerable<SugestaoModel> GetAllSugestoes() => _repository.GetAll().OrderBy(s => s.SugestaoId);
 
         public SugestaoModel GetSugestaoById(int id) => _repository.GetSugestaoById(id);
 
         public void AddSugestao(SugestaoModel sugestao) => _repository.AddSugestao(sugestao);
 
-        public void UpdateSugestao(SugestaoModel sugestao) => _repository.UpdateSugestao(sugestao);
+        public void UpdateSugestao(SugestaoModel sugestao)
+        {
+            var sugestaoExistente = _repository.GetSugestaoById(sugestao.SugestaoId);
+
+            if (sugestaoExistente == null)
+                throw new KeyNotFoundException("Sugestão não encontrado.");
+
+
+            _repository.UpdateSugestao(sugestao);
+        }
 
         public bool DeleteSugestao(int id)
         {
