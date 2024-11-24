@@ -35,12 +35,6 @@ namespace VotaE_API.Repository
         {
             var usuarioExistente = _dbContext.Usuarios.Find(usuario.UsuarioId);
 
-            if (usuarioExistente == null)
-            {
-                throw new KeyNotFoundException("Usuário não encontrado.");
-            }
-
-            // Atualiza apenas os campos modificados
             _dbContext.Entry(usuarioExistente).CurrentValues.SetValues(usuario);
             _dbContext.SaveChanges();
         }

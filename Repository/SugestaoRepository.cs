@@ -27,7 +27,9 @@ namespace VotaE_API.Repository
 
         public void UpdateSugestao(SugestaoModel sugestao)
         {
-            _dbContext.Sugestoes.Update(sugestao);
+            var sugestaoExistente = _dbContext.Sugestoes.Find(sugestao.SugestaoId);
+
+            _dbContext.Entry(sugestaoExistente).CurrentValues.SetValues(sugestao);
             _dbContext.SaveChanges();
         }
 

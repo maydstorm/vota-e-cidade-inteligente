@@ -20,41 +20,41 @@ namespace VotaE_API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<SugestaoModel>> GetAllSugestoes()
+        public ActionResult<IEnumerable<SugestaoViewModel>> GetAllSugestoes()
         {
             var sugestao = _sugestaoService.GetAllSugestoes();
 
             if(sugestao != null && sugestao.Any())
             {
-                var viewModelList = _mapper.Map<IEnumerable<SugestaoModel>>(sugestao);
+                var viewModelList = _mapper.Map<IEnumerable<SugestaoViewModel>>(sugestao);
 
-                return Ok(viewModelList);
+                return StatusCode(200, viewModelList);
             }
             else
             {
-                return NoContent();
+                return StatusCode(204);
             }
         }
 
         [HttpGet("{id}")]
-        public ActionResult<SugestaoModel> GetSugestoById([FromRoute] int id)
+        public ActionResult<SugestaoViewModel> GetSugestoById([FromRoute] int id)
         {
             var sugestao = _sugestaoService.GetSugestaoById(id);
 
             if (sugestao != null)
             {
-                var viewModel = _mapper.Map<SugestaoModel>(sugestao);
+                var viewModel = _mapper.Map<SugestaoViewModel>(sugestao);
 
-                return Ok(viewModel);
+                return StatusCode(200, viewModel);
             }
             else
             {
-                return NotFound();
+                return StatusCode(404);
             }
         }
 
         [HttpPost]
-        public ActionResult<SugestaoModel> Create([FromBody] SugestaoViewModel viewModel) 
+        public ActionResult<SugestaoModel> Create([FromBody] SugestaoModel viewModel) 
         {
             var model = _mapper.Map<SugestaoModel>(viewModel);
             _sugestaoService.AddSugestao(model);
@@ -62,19 +62,31 @@ namespace VotaE_API.Controllers
             return CreatedAtAction(nameof(GetSugestoById), new { id = model.SugestaoId }, model); ;
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public ActionResult<SugestaoModel> UpdateSugestao([FromRoute] int id, [FromBody] SugestaoViewModel viewModel)
         {
-            if (viewModel.SugestaoId == id)
+            if (id != viewModel.SugestaoId)
             {
+                return StatusCode(500,"O ID da rota não corresponde ao ID do objeto enviado.");
+            }
+
+            try
+            {
+                var sugestaoExistente = _sugestaoService.GetSugestaoById(id);
+
+                if (sugestaoExistente == null)
+                {
+                    return StatusCode(404,"Usuário não encontrado.");
+                }
+
                 var model = _mapper.Map<SugestaoModel>(viewModel);
                 _sugestaoService.UpdateSugestao(model);
 
-                return NoContent();
+                return StatusCode(204); 
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("O ID da rota não corresponde ao ID do objeto enviado.");
+                return StatusCode(500, "Erro interno do servidor ao atualizar o usuário.");
             }
         }
 
@@ -84,9 +96,9 @@ namespace VotaE_API.Controllers
             var result = _sugestaoService.DeleteSugestao(id);
 
             if (!result)
-                return NotFound($"Sugestão com ID {id} não encontrado.");
+                return StatusCode(404, $"Sugestão com ID {id} não encontrado.");
 
-            return NoContent();
+            return StatusCode(204);
         }
     }
 }

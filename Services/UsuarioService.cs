@@ -15,7 +15,7 @@ namespace VotaE_API.Services
             _passwordHasher = new PasswordHasher<UsuarioModel>();
         }
 
-        public IEnumerable<UsuarioModel> GetAllUsuarios() => _repository.GetAll();
+        public IEnumerable<UsuarioModel> GetAllUsuarios() => _repository.GetAll().OrderBy(u => u.UsuarioId);
 
         public UsuarioModel GetUsuarioById(int id) => _repository.GetById(id);
 
