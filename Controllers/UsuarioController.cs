@@ -6,7 +6,7 @@ using VotaE_API.ViewModel.Usuario;
 
 namespace VotaE_API.Controllers
 {
-    [Route("api/usuario")]
+    [Route("api/usuario/")]
     [ApiController]
     public class UsuarioController : Controller
     {
@@ -21,13 +21,13 @@ namespace VotaE_API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<UsuarioModel>> GetAllUsuarios()
+        public ActionResult<IEnumerable<UsuarioViewModel>> GetAllUsuarios()
         {
             var usuarios = _usuarioService.GetAllUsuarios();
 
             if (usuarios != null && usuarios.Any())
             {
-                var viewModelList = _mapper.Map<IEnumerable<UsuarioModel>>(usuarios);
+                var viewModelList = _mapper.Map<IEnumerable<UsuarioViewModel>>(usuarios);
 
                 return Ok(viewModelList);
             }
@@ -38,13 +38,13 @@ namespace VotaE_API.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<UsuarioModel> GetUsuarioById([FromRoute] int id)
+        public ActionResult<UsuarioViewModel> GetUsuarioById([FromRoute] int id)
         {
             var usuario = _usuarioService.GetUsuarioById(id);
 
             if (usuario != null)
             {
-                var viewModel = _mapper.Map<UsuarioModel>(usuario);
+                var viewModel = _mapper.Map<UsuarioViewModel>(usuario);
 
                 return Ok(viewModel);
             }
@@ -56,31 +56,46 @@ namespace VotaE_API.Controllers
 
 
         [HttpPost]
-        public ActionResult Create([FromBody] UsuarioViewModel viewModel)
+        public ActionResult Create([FromBody] UsuarioModel viewModel)
         {
-            var model = _mapper.Map<UsuarioModel>(viewModel);
-            _usuarioService.AddUsuario(model);
-
-            return CreatedAtAction(nameof(GetUsuarioById), new { id = model.UsuarioId }, model);
-        }
-
-        [HttpPut("{id}")]
-        public ActionResult UpdateUsuario([FromRoute] int id, [FromBody] UsuarioViewModel viewModel)
-        {
-            if (viewModel.UsuarioId != id) // verificar com a JU, se faz sentido usr PUT ou PATCH
-                return BadRequest("O ID da rota não corresponde ao ID do objeto enviado.");
-
-
-            if (viewModel.UsuarioId == id) 
+            try
             {
+                var model = _mapper.Map<UsuarioModel>(viewModel);
+                _usuarioService.AddUsuario(model);
+
+                return CreatedAtAction(nameof(GetUsuarioById), new { id = model.UsuarioId }, model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+        }
+    
+        [HttpPut("{id}")]
+        public ActionResult UpdateUsuario([FromRoute] int id, [FromBody] UsuarioModel viewModel)
+        {
+            if (id != viewModel.UsuarioId)
+            {
+                return BadRequest("O ID da rota não corresponde ao ID do objeto enviado.");
+            }
+
+            try
+            {
+                var usuarioExistente = _usuarioService.GetUsuarioById(id);
+                if (usuarioExistente == null)
+                {
+                    return NotFound("Usuário não encontrado.");
+                }
+
                 var model = _mapper.Map<UsuarioModel>(viewModel);
                 _usuarioService.UpdateUsuario(model);
 
-                return NoContent();
+                return NoContent(); 
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest("Erro interno do servidor ao atualizar o usuário.");
             }
         }
 
