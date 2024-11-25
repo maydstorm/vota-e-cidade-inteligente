@@ -20,14 +20,23 @@ namespace VotaE_API.Services
 
         public void AddSugestao(SugestaoModel sugestao)
         {
-            if (!_usuarioService.Equals(sugestao.UsuarioId))
+            // Verifica se o usuário existe
+            var usuario = _usuarioService.GetUsuarioById(sugestao.UsuarioId);
+            if (usuario == null)
             {
                 throw new KeyNotFoundException("Usuário não encontrado.");
             }
 
+            // Preenche a data de criação
             sugestao.DataCriacao = DateTime.UtcNow;
+
+            // Associa o usuário à sugestão (se necessário)
+            sugestao.Usuario = usuario;
+
+            // Adiciona a sugestão no repositório
             _repository.AddSugestao(sugestao);
-        }  
+        }
+
 
         public void UpdateSugestao(SugestaoModel sugestao)
         {

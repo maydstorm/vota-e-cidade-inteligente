@@ -12,8 +12,8 @@ using VotaE_API.Data;
 namespace VotaE_API.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20241121123523_NomeDaMigracao")]
-    partial class NomeDaMigracao
+    [Migration("20241122120341_projetos")]
+    partial class projetos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
