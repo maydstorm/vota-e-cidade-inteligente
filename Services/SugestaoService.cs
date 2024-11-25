@@ -16,7 +16,11 @@ namespace VotaE_API.Services
 
         public SugestaoModel GetSugestaoById(int id) => _repository.GetSugestaoById(id);
 
-        public void AddSugestao(SugestaoModel sugestao) => _repository.AddSugestao(sugestao);
+        public void AddSugestao(SugestaoModel sugestao)
+        {
+            sugestao.DataCriacao = DateTime.UtcNow;
+            _repository.AddSugestao(sugestao);
+        }  
 
         public void UpdateSugestao(SugestaoModel sugestao)
         {
@@ -25,7 +29,7 @@ namespace VotaE_API.Services
             if (sugestaoExistente == null)
                 throw new KeyNotFoundException("Sugestão não encontrado.");
 
-
+            sugestao.DataCriacao = DateTime.UtcNow;
             _repository.UpdateSugestao(sugestao);
         }
 
