@@ -28,11 +28,11 @@ namespace VotaE_API.Controllers
             {
                 var viewModelList = _mapper.Map<IEnumerable<SugestaoViewModel>>(sugestao);
 
-                return StatusCode(200, viewModelList);
+                return Ok(viewModelList);
             }
             else
             {
-                return StatusCode(204);
+                return NoContent();
             }
         }
 
@@ -45,21 +45,35 @@ namespace VotaE_API.Controllers
             {
                 var viewModel = _mapper.Map<SugestaoViewModel>(sugestao);
 
-                return StatusCode(200, viewModel);
+                return Ok(viewModel);
             }
             else
             {
-                return StatusCode(404);
+                return NotFound();
             }
         }
 
         [HttpPost]
-        public ActionResult<SugestaoModel> Create([FromBody] SugestaoModel viewModel) 
+        public ActionResult<SugestaoModel> Create([FromBody] SugestaoViewModel viewModel) 
         {
-            var model = _mapper.Map<SugestaoModel>(viewModel);
-            _sugestaoService.AddSugestao(model);
+            try
+            {
+                var model = _mapper.Map<SugestaoModel>(viewModel);
+                _sugestaoService.AddSugestao(model);
 
-            return CreatedAtAction(nameof(GetSugestoById), new { id = model.SugestaoId }, model); ;
+                return CreatedAtAction(nameof(GetSugestoById), new { id = model.SugestaoId }, model); 
+            }
+            catch (KeyNotFoundException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+
+            
         }
 
         [HttpPut("{id}")]
@@ -67,7 +81,7 @@ namespace VotaE_API.Controllers
         {
             if (id != viewModel.SugestaoId)
             {
-                return StatusCode(500,"O ID da rota não corresponde ao ID do objeto enviado.");
+                return BadRequest("O ID da rota não corresponde ao ID do objeto enviado.");
             }
 
             try
@@ -76,17 +90,17 @@ namespace VotaE_API.Controllers
 
                 if (sugestaoExistente == null)
                 {
-                    return StatusCode(404,"Usuário não encontrado.");
+                    return NotFound("Usuário não encontrado.");
                 }
 
                 var model = _mapper.Map<SugestaoModel>(viewModel);
                 _sugestaoService.UpdateSugestao(model);
 
-                return StatusCode(204); 
+                return NoContent(); 
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Erro interno do servidor ao atualizar o usuário.");
+                return BadRequest("Erro interno do servidor ao atualizar o usuário.");
             }
         }
 
@@ -96,9 +110,9 @@ namespace VotaE_API.Controllers
             var result = _sugestaoService.DeleteSugestao(id);
 
             if (!result)
-                return StatusCode(404, $"Sugestão com ID {id} não encontrado.");
+                return NotFound($"Sugestão com ID {id} não encontrado.");
 
-            return StatusCode(204);
+            return NoContent();
         }
     }
 }
