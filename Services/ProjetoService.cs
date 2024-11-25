@@ -1,4 +1,5 @@
-﻿using VotaE_API.Interface;
+﻿using Microsoft.AspNetCore.Identity;
+using VotaE_API.Interface;
 using VotaE_API.Models;
 
 namespace VotaE_API.Services
@@ -12,29 +13,34 @@ namespace VotaE_API.Services
             _repository = repository;
         }
 
-        public IEnumerable<ProjetoModel> GetAllProjetos()
-        {
-            return _repository.GetAll();
-        }
+        public IEnumerable<ProjetoModel> GetAllProjetos() => _repository.GetAll().OrderBy(p => p.ProjetoId);
 
-        public ProjetoModel GetProjetoById(int id)
-        {
-            return _repository.GetById(id);
-        }
+        public ProjetoModel GetProjetoById(int id) => _repository.GetById(id);
 
         public void AddProjeto(ProjetoModel projeto)
         {
-            _repository.Add(projeto);
+            _repository.AddProjeto(projeto);
         }
 
         public void UpdateProjeto(ProjetoModel projeto)
         {
-            _repository.Update(projeto);
+            var projetoExistente = _repository.GetById(projeto.ProjetoId);
+
+            if (projetoExistente == null)
+                throw new KeyNotFoundException("Projeto não encontrado.");
+
+            _repository.UpdateProjeto(projeto);
         }
 
         public bool Delete(int id)
         {
-            return _repository.Delete(id);
+            var projeto = _repository.GetById(id);
+            if (projeto != null)
+            {
+                _repository.DeleteProjeto(id);
+                return true;
+            }
+            return false;
         }
     }
 }

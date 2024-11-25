@@ -6,8 +6,8 @@ namespace VotaE_API.Interface
     {
         IEnumerable<ProjetoModel> GetAll();
         ProjetoModel GetById(int id);
-        void Add(ProjetoModel projeto);
-        void Update(ProjetoModel projeto);
-        bool Delete(int id);
+        void AddProjeto(ProjetoModel projeto);
+        void UpdateProjeto(ProjetoModel projeto);
+        bool DeleteProjeto(int id);
     }
 }

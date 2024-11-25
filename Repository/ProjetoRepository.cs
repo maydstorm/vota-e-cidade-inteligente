@@ -19,31 +19,32 @@ namespace VotaE_API.Repository
             return _dbContext.Projetos.Include(p => p.Sugestao).ToList();
         }
 
-        public ProjetoModel GetById(int id)
-        {
-            return _dbContext.Projetos.Include(p => p.Sugestao).FirstOrDefault(p => p.ProjetoId == id);
-        }
+        public ProjetoModel GetById(int id) => _dbContext.Projetos.Include(p => p.Sugestao).FirstOrDefault(p => p.ProjetoId == id);
 
-        public void Add(ProjetoModel projeto)
+        public void AddProjeto(ProjetoModel projeto)
         {
             _dbContext.Projetos.Add(projeto);
             _dbContext.SaveChanges();
         }
 
-        public void Update(ProjetoModel projeto)
+        public void UpdateProjeto(ProjetoModel projeto)
         {
-            _dbContext.Projetos.Update(projeto);
+            var projetoExistente = _dbContext.Projetos.Find(projeto.ProjetoId);
+
+            _dbContext.Entry(projetoExistente).CurrentValues.SetValues(projeto);
             _dbContext.SaveChanges();
         }
 
-        public bool Delete(int id)
+        public bool DeleteProjeto(int id)
         {
-            var projeto = _dbContext.Projetos.FirstOrDefault(p => p.ProjetoId == id);
+            var projeto = _dbContext.Projetos.Find(id);
+
             if (projeto == null)
                 return false;
 
             _dbContext.Projetos.Remove(projeto);
             _dbContext.SaveChanges();
+
             return true;
         }
     }

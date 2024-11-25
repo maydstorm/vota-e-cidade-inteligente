@@ -17,52 +17,88 @@ namespace VotaE_API.Controllers
         {
             _projetoService = projetoService;
             _mapper = mapper;
+
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<ProjetoViewModel>> GetAllProjetos()
         {
             var projetos = _projetoService.GetAllProjetos();
-            if (projetos.Any())
+
+            if (projetos != null && projetos.Any())
             {
                 var viewModelList = _mapper.Map<IEnumerable<ProjetoViewModel>>(projetos);
+
                 return Ok(viewModelList);
             }
-
-            return NoContent();
+            else
+            {
+                return NoContent();
+            }
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ProjetoViewModel> GetProjetoById(int id)
+        public ActionResult<ProjetoViewModel> GetProjetoById([FromRoute] int id)
         {
             var projeto = _projetoService.GetProjetoById(id);
+
             if (projeto != null)
             {
                 var viewModel = _mapper.Map<ProjetoViewModel>(projeto);
+
                 return Ok(viewModel);
             }
-
-            return NotFound();
+            else
+            {
+                return NotFound();
+            }
         }
+
 
         [HttpPost]
         public ActionResult Create([FromBody] ProjetoViewModel projetoViewModel)
         {
-            var model = _mapper.Map<ProjetoModel>(projetoViewModel);
-            _projetoService.AddProjeto(model);
-            return CreatedAtAction(nameof(GetProjetoById), new { id = model.ProjetoId }, projetoViewModel);
+            try
+            {
+                var model = _mapper.Map<ProjetoModel>(projetoViewModel);
+                _projetoService.AddProjeto(model);
+
+                return CreatedAtAction(nameof(GetProjetoById), new { id = model.ProjetoId }, model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateProjeto(int id, [FromBody] ProjetoViewModel projetoViewModel)
+        public ActionResult UpdateProjeto([FromRoute] int id, [FromBody] ProjetoViewModel projetoViewModel)
         {
             if (id != projetoViewModel.ProjetoId)
+            {
                 return BadRequest("O ID da rota não corresponde ao ID do projeto enviado.");
+            }
 
-            var model = _mapper.Map<ProjetoModel>(projetoViewModel);
-            _projetoService.UpdateProjeto(model);
-            return NoContent();
+            try
+            {
+                var projetoExistente = _projetoService.GetProjetoById(id);
+                if (projetoExistente == null)
+                {
+                    return NotFound("Projeto não encontrado.");
+                }
+
+                var model = _mapper.Map<ProjetoModel>(projetoViewModel);
+                _projetoService.UpdateProjeto(model);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Erro interno do servidor ao atualizar o projeto.");
+            }
         }
+
 
         [HttpDelete("{id}")]
         public ActionResult DeleteProjeto(int id)
