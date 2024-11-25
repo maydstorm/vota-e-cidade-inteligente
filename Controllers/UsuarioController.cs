@@ -21,7 +21,7 @@ namespace VotaE_API.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAllUsuarios()
+        public ActionResult<IEnumerable<UsuarioViewModel>> GetAllUsuarios()
         {
             var usuarios = _usuarioService.GetAllUsuarios();
 
@@ -58,10 +58,18 @@ namespace VotaE_API.Controllers
         [HttpPost]
         public ActionResult Create([FromBody] UsuarioModel viewModel)
         {
-            var model = _mapper.Map<UsuarioModel>(viewModel);
-            _usuarioService.AddUsuario(model);
+            try
+            {
+                var model = _mapper.Map<UsuarioModel>(viewModel);
+                _usuarioService.AddUsuario(model);
 
-            return CreatedAtAction(nameof(GetUsuarioById), new { id = model.UsuarioId }, model);
+                return CreatedAtAction(nameof(GetUsuarioById), new { id = model.UsuarioId }, model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
     
         [HttpPut("{id}")]

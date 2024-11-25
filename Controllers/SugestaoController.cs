@@ -54,12 +54,26 @@ namespace VotaE_API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<SugestaoModel> Create([FromBody] SugestaoModel viewModel) 
+        public ActionResult<SugestaoModel> Create([FromBody] SugestaoViewModel viewModel) 
         {
-            var model = _mapper.Map<SugestaoModel>(viewModel);
-            _sugestaoService.AddSugestao(model);
+            try
+            {
+                var model = _mapper.Map<SugestaoModel>(viewModel);
+                _sugestaoService.AddSugestao(model);
 
-            return CreatedAtAction(nameof(GetSugestoById), new { id = model.SugestaoId }, model); ;
+                return CreatedAtAction(nameof(GetSugestoById), new { id = model.SugestaoId }, model); 
+            }
+            catch (KeyNotFoundException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+
+            
         }
 
         [HttpPut("{id}")]

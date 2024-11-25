@@ -6,10 +6,12 @@ namespace VotaE_API.Services
     public class SugestaoService : ISugestaoService
     {
         private readonly ISugestaoRepository _repository;
+        private readonly IUsuarioService _usuarioService;
 
-        public SugestaoService(ISugestaoRepository repository)
+        public SugestaoService(ISugestaoRepository repository, IUsuarioService usuarioService)
         {
             _repository = repository;
+            _usuarioService = usuarioService;
         }
 
         public IEnumerable<SugestaoModel> GetAllSugestoes() => _repository.GetAll().OrderBy(s => s.SugestaoId);
@@ -18,6 +20,11 @@ namespace VotaE_API.Services
 
         public void AddSugestao(SugestaoModel sugestao)
         {
+            if (!_usuarioService.Equals(sugestao.UsuarioId))
+            {
+                throw new KeyNotFoundException("Usuário não encontrado.");
+            }
+
             sugestao.DataCriacao = DateTime.UtcNow;
             _repository.AddSugestao(sugestao);
         }  

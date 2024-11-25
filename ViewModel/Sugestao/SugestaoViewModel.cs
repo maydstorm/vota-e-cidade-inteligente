@@ -1,4 +1,4 @@
-﻿using VotaE_API.Models;
+﻿using VotaE_API.ViewModel.Usuario;
 
 namespace VotaE_API.ViewModel.Sugestao
 {
@@ -11,6 +11,6 @@ namespace VotaE_API.ViewModel.Sugestao
         public string? Observacao { get; set; }
         public DateTime DataCriacao { get; set; }
         public int UsuarioId { get; set; }
-        public UsuarioModel Usuario { get; set; }
+        public UsuarioViewModel Usuario { get; set; }
     }
 }
