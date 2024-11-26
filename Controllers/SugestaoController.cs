@@ -8,7 +8,7 @@ namespace VotaE_API.Controllers
 {
     [Route("api/sugestao/")]
     [ApiController]
-    public class SugestaoController : Controller
+    public class SugestaoController : ControllerBase
     {
         private readonly ISugestaoService _sugestaoService;
         private readonly IMapper _mapper;
@@ -54,7 +54,7 @@ namespace VotaE_API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<SugestaoModel> Create([FromBody] SugestaoViewModel viewModel) 
+        public ActionResult Create([FromBody] SugestaoViewModel viewModel) 
         {
             try
             {
@@ -71,13 +71,10 @@ namespace VotaE_API.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            
-
-            
         }
 
         [HttpPut("{id}")]
-        public ActionResult<SugestaoModel> UpdateSugestao([FromRoute] int id, [FromBody] SugestaoViewModel viewModel)
+        public ActionResult UpdateSugestao([FromRoute] int id, [FromBody] SugestaoViewModel viewModel)
         {
             if (id != viewModel.SugestaoId)
             {

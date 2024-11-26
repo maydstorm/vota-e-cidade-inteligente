@@ -8,7 +8,7 @@ namespace VotaE_API.Controllers
 {
     [Route("api/usuario/")]
     [ApiController]
-    public class UsuarioController : Controller
+    public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _usuarioService;
         private readonly IMapper _mapper;
@@ -73,7 +73,7 @@ namespace VotaE_API.Controllers
         }
     
         [HttpPut("{id}")]
-        public ActionResult UpdateUsuario([FromRoute] int id, [FromBody] UsuarioModel viewModel)
+        public ActionResult UpdateUsuario([FromRoute] int id, [FromBody] UsuarioViewModel viewModel)
         {
             if (id != viewModel.UsuarioId)
             {
