@@ -5,7 +5,7 @@
 namespace VotaE_API.Migrations
 {
     /// <inheritdoc />
-    public partial class NomeDaMigracao : Migration
+    public partial class projetos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

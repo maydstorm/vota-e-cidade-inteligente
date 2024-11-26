@@ -10,6 +10,7 @@ using VotaE_API.Repository;
 using VotaE_API.Services;
 using VotaE_API.ViewModel.Sugestao;
 using VotaE_API.ViewModel.Usuario;
+using VotaE_API.ViewModel.Projeto;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,9 @@ builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 builder.Services.AddScoped<ISugestaoRepository, SugestaoRepository>();
 builder.Services.AddScoped<ISugestaoService, SugestaoService>();
+
+builder.Services.AddScoped<IProjetoRepository, ProjetoRepository>();
+builder.Services.AddScoped<IProjetoService, ProjetoService>();
 #endregion
 
 #region AutoMapper
@@ -52,6 +56,10 @@ var mapperConfig = new AutoMapper.MapperConfiguration(c =>
     //mapeamento Sugestão
     c.CreateMap<SugestaoModel, SugestaoViewModel>();
     c.CreateMap<SugestaoViewModel, SugestaoModel>();
+
+    //mapeamento Projeto
+    c.CreateMap<ProjetoModel, ProjetoViewModel>();
+    c.CreateMap<ProjetoViewModel, ProjetoModel>();
 });
 
 IMapper mapper = mapperConfig.CreateMapper();
