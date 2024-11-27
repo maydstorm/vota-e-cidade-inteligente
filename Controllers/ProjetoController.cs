@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VotaE_API.Interface;
 using VotaE_API.Models;
-using VotaE_API.ViewModel.Projeto; 
+using VotaE_API.ViewModel.Projeto;
 
 namespace VotaE_API.Controllers
 {
@@ -117,5 +117,14 @@ namespace VotaE_API.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("porcentagem/sugestoes/projetos")]
+        public ActionResult<object> GetPorcentagemSugestoesProjetos()
+        {
+            var porcentagem = _projetoService.GetPorcentagemSugestoesProjetos();
+            return Ok(new { porcentagem });
+        }
+
+
     }
 }

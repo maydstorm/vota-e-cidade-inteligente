@@ -6,10 +6,14 @@ namespace VotaE_API.Services
     public class ProjetoService : IProjetoService
     {
         private readonly IProjetoRepository _repository;
+        private readonly ISugestaoRepository _sugestaoRepository; 
+        private readonly IProjetoRepository _projetoRepository;   
 
-        public ProjetoService(IProjetoRepository repository)
+        public ProjetoService(IProjetoRepository repository, ISugestaoRepository sugestaoRepository, IProjetoRepository projetoRepository)
         {
             _repository = repository;
+            _sugestaoRepository = sugestaoRepository;
+            _projetoRepository = projetoRepository;
         }
 
         public IEnumerable<ProjetoModel> GetAllProjetos(int lastReference, int size) 
@@ -43,6 +47,16 @@ namespace VotaE_API.Services
                 return true;
             }
             return false;
+        }
+
+        public decimal GetPorcentagemSugestoesProjetos()
+        {
+            var totalSugestoes = _sugestaoRepository.GetTotalSugestoes(); 
+            var totalProjetos = _projetoRepository.GetTotalProjetos();   
+
+            if (totalSugestoes == 0) return 0;
+
+            return ((decimal)totalProjetos / totalSugestoes) * 100;
         }
     }
 }
