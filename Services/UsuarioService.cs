@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Drawing;
+using System.Security.Policy;
 using VotaE_API.Interface;
 using VotaE_API.Models;
 
@@ -15,7 +17,11 @@ namespace VotaE_API.Services
             _passwordHasher = new PasswordHasher<UsuarioModel>();
         }
 
-        public IEnumerable<UsuarioModel> GetAllUsuarios() => _repository.GetAll().OrderBy(u => u.UsuarioId);
+        public IEnumerable<UsuarioModel> GetAllUsuarios(int lastReference, int size) 
+        { 
+            return _repository.GetAll(lastReference, size);
+        }
+    
 
         public UsuarioModel GetUsuarioById(int id) => _repository.GetById(id);
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using VotaE_API.Interface;
 using VotaE_API.Models;
 using VotaE_API.ViewModel.Sugestao;
+using VotaE_API.ViewModel.Usuario;
 
 namespace VotaE_API.Controllers
 {
@@ -20,15 +21,22 @@ namespace VotaE_API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<SugestaoViewModel>> GetAllSugestoes()
+        public ActionResult<IEnumerable<SugestaoPaginacaoViewModel>> GetAllSugestoes([FromQuery] int reference = 0, int tamanho = 10)
         {
-            var sugestao = _sugestaoService.GetAllSugestoes();
+            var sugestao = _sugestaoService.GetAllSugestoes(reference, tamanho);
 
             if(sugestao != null && sugestao.Any())
             {
                 var viewModelList = _mapper.Map<IEnumerable<SugestaoViewModel>>(sugestao);
+                var ViewModel = new SugestaoPaginacaoViewModel
+                {
+                    Sugestoes = viewModelList,
+                    PageSize = tamanho,
+                    Ref = reference,
+                    NextRef = (int)viewModelList.Last().SugestaoId
+                };
 
-                return Ok(viewModelList);
+                return Ok(ViewModel);
             }
             else
             {

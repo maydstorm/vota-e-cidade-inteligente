@@ -1,4 +1,5 @@
-﻿using VotaE_API.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using VotaE_API.Data;
 using VotaE_API.Interface;
 using VotaE_API.Models;
 
@@ -13,9 +14,15 @@ namespace VotaE_API.Repository
             _dbContext = dbContext;
         }
 
-        public IEnumerable<UsuarioModel> GetAll()
+        public IEnumerable<UsuarioModel> GetAll(int lastReference, int size)
         {
-            return _dbContext.Usuarios.ToList();
+            var usuarios = _dbContext.Usuarios.Where( u => u.UsuarioId > lastReference)
+                .OrderBy( u => u.UsuarioId)
+                .Take(size)
+                .AsNoTracking()
+                .ToList();
+
+            return usuarios;
         }
 
         public UsuarioModel GetById(int id) => _dbContext.Usuarios.Find(id);

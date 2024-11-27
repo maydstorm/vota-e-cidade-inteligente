@@ -14,7 +14,10 @@ namespace VotaE_API.Services
             _usuarioService = usuarioService;
         }
 
-        public IEnumerable<SugestaoModel> GetAllSugestoes() => _repository.GetAll().OrderBy(s => s.SugestaoId);
+        public IEnumerable<SugestaoModel> GetAllSugestoes(int lastReference, int size)
+        {
+            return _repository.GetAll(lastReference, size);
+        } 
 
         public SugestaoModel GetSugestaoById(int id) => _repository.GetSugestaoById(id);
 
