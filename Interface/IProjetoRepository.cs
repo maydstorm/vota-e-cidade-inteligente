@@ -9,5 +9,7 @@ namespace VotaE_API.Interface
         void AddProjeto(ProjetoModel projeto);
         void UpdateProjeto(ProjetoModel projeto);
         bool DeleteProjeto(int id);
+        int GetTotalProjetos();
+
     }
 }

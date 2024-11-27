@@ -45,5 +45,11 @@ namespace VotaE_API.Repository
 
             return true;
         }
+
+        public int GetTotalSugestoes()
+        {
+            return _dbContext.Sugestoes.Count();
+        }
+
     }
 }

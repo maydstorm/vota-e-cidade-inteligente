@@ -47,5 +47,11 @@ namespace VotaE_API.Repository
 
             return true;
         }
+
+    public int GetTotalProjetos()
+        {
+            return _dbContext.Projetos.Count();
+        }
     }
+
 }
