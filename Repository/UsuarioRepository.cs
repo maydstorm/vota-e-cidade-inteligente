@@ -59,5 +59,10 @@ namespace VotaE_API.Repository
             return true;
         }
 
+        public int GetTotalUsuarios()
+        {
+            return _dbContext.Usuarios.Count();
+        }
+
     }
 }

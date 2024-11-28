@@ -61,5 +61,10 @@ namespace VotaE_API.Services
             }
             return false;
         }
+
+        public int GetSugestaoCount()
+        {
+            return _repository.GetTotalSugestoes();
+        }
     }
 }

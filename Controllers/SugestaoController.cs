@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VotaE_API.Interface;
 using VotaE_API.Models;
+using VotaE_API.Services;
 using VotaE_API.ViewModel.Sugestao;
 using VotaE_API.ViewModel.Usuario;
 
@@ -118,6 +119,14 @@ namespace VotaE_API.Controllers
                 return NotFound($"Sugestão com ID {id} não encontrado.");
 
             return NoContent();
+        }
+
+        [HttpGet("total")]
+        public ActionResult GetTotalSugestoes()
+        {
+            var totalSugestao = _sugestaoService.GetSugestaoCount();
+
+            return Ok(new { totalSugestao });
         }
     }
 }

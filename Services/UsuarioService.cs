@@ -58,6 +58,11 @@ namespace VotaE_API.Services
             }
             return false; 
         }
+
+        public int TotalUsuarios()
+        {
+            return _repository.GetTotalUsuarios();
+        }
     }
 }
 

@@ -76,9 +76,9 @@ namespace VotaE_API.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            
+
         }
-    
+
         [HttpPut("{id}")]
         public ActionResult UpdateUsuario([FromRoute] int id, [FromBody] UsuarioViewModel viewModel)
         {
@@ -98,7 +98,7 @@ namespace VotaE_API.Controllers
                 var model = _mapper.Map<UsuarioModel>(viewModel);
                 _usuarioService.UpdateUsuario(model);
 
-                return NoContent(); 
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -115,6 +115,14 @@ namespace VotaE_API.Controllers
                 return NotFound($"Usuário com ID {id} não encontrado.");
 
             return NoContent();
+        }
+
+        [HttpGet("total")]
+        public ActionResult TotalUsuarios()
+        {
+            var totalUsuarios = _usuarioService.TotalUsuarios();
+
+            return Ok(new { totalUsuarios });
         }
     }
 }

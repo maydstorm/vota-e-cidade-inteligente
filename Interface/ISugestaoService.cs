@@ -9,5 +9,6 @@ namespace VotaE_API.Interface
         void AddSugestao(SugestaoModel sugestao);
         void UpdateSugestao(SugestaoModel sugestao);
         bool DeleteSugestao(int id);
+        int GetSugestaoCount();
     }
 }
