@@ -2,13 +2,15 @@
 using Microsoft.AspNetCore.Mvc;
 using VotaE_API.Interface;
 using VotaE_API.Models;
+using VotaE_API.Services;
 using VotaE_API.ViewModel.Sugestao;
+using VotaE_API.ViewModel.Usuario;
 
 namespace VotaE_API.Controllers
 {
     [Route("api/sugestao/")]
     [ApiController]
-    public class SugestaoController : Controller
+    public class SugestaoController : ControllerBase
     {
         private readonly ISugestaoService _sugestaoService;
         private readonly IMapper _mapper;
@@ -20,15 +22,22 @@ namespace VotaE_API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<SugestaoViewModel>> GetAllSugestoes()
+        public ActionResult<IEnumerable<SugestaoPaginacaoViewModel>> GetAllSugestoes([FromQuery] int reference = 0, int tamanho = 10)
         {
-            var sugestao = _sugestaoService.GetAllSugestoes();
+            var sugestao = _sugestaoService.GetAllSugestoes(reference, tamanho);
 
             if(sugestao != null && sugestao.Any())
             {
                 var viewModelList = _mapper.Map<IEnumerable<SugestaoViewModel>>(sugestao);
+                var ViewModel = new SugestaoPaginacaoViewModel
+                {
+                    Sugestoes = viewModelList,
+                    PageSize = tamanho,
+                    Ref = reference,
+                    NextRef = (int)viewModelList.Last().SugestaoId
+                };
 
-                return Ok(viewModelList);
+                return Ok(ViewModel);
             }
             else
             {
@@ -54,7 +63,7 @@ namespace VotaE_API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<SugestaoModel> Create([FromBody] SugestaoViewModel viewModel) 
+        public ActionResult Create([FromBody] SugestaoViewModel viewModel) 
         {
             try
             {
@@ -71,13 +80,10 @@ namespace VotaE_API.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            
-
-            
         }
 
         [HttpPut("{id}")]
-        public ActionResult<SugestaoModel> UpdateSugestao([FromRoute] int id, [FromBody] SugestaoViewModel viewModel)
+        public ActionResult UpdateSugestao([FromRoute] int id, [FromBody] SugestaoViewModel viewModel)
         {
             if (id != viewModel.SugestaoId)
             {
@@ -113,6 +119,14 @@ namespace VotaE_API.Controllers
                 return NotFound($"Sugestão com ID {id} não encontrado.");
 
             return NoContent();
+        }
+
+        [HttpGet("total")]
+        public ActionResult GetTotalSugestoes()
+        {
+            var totalSugestao = _sugestaoService.GetSugestaoCount();
+
+            return Ok(new { totalSugestao });
         }
     }
 }

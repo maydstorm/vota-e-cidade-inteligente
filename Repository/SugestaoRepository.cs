@@ -1,4 +1,5 @@
-﻿using VotaE_API.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using VotaE_API.Data;
 using VotaE_API.Interface;
 using VotaE_API.Models;
 
@@ -13,9 +14,15 @@ namespace VotaE_API.Repository
             _dbContext = dbContext;
         }
 
-        public IEnumerable<SugestaoModel> GetAll()
+        public IEnumerable<SugestaoModel> GetAll(int lastReference, int size)
         {
-            return _dbContext.Sugestoes.ToList();
+            var sugestoes = _dbContext.Sugestoes.Where(s => s.SugestaoId > lastReference)
+                .OrderBy(s => s.SugestaoId)
+                .Take(size)
+                .AsNoTracking()
+                .ToList();
+
+            return sugestoes;
         }
 
         public SugestaoModel GetSugestaoById(int id) => _dbContext.Sugestoes.Find(id);
@@ -50,6 +57,5 @@ namespace VotaE_API.Repository
         {
             return _dbContext.Sugestoes.Count();
         }
-
     }
 }

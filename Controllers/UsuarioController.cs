@@ -8,7 +8,7 @@ namespace VotaE_API.Controllers
 {
     [Route("api/usuario/")]
     [ApiController]
-    public class UsuarioController : Controller
+    public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _usuarioService;
         private readonly IMapper _mapper;
@@ -21,15 +21,22 @@ namespace VotaE_API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<UsuarioViewModel>> GetAllUsuarios()
+        public ActionResult<IEnumerable<UsuarioPaginacaoViewModel>> GetAllUsuarios([FromQuery] int reference = 0, int tamanho = 10)
         {
-            var usuarios = _usuarioService.GetAllUsuarios();
+            var usuarios = _usuarioService.GetAllUsuarios(reference, tamanho);
 
             if (usuarios != null && usuarios.Any())
             {
                 var viewModelList = _mapper.Map<IEnumerable<UsuarioViewModel>>(usuarios);
+                var ViewModel = new UsuarioPaginacaoViewModel
+                {
+                    Usuarios = viewModelList,
+                    PageSize = tamanho,
+                    Ref = reference,
+                    NextRef = (int)viewModelList.Last().UsuarioId
+                };
 
-                return Ok(viewModelList);
+                return Ok(ViewModel);
             }
             else
             {
@@ -69,11 +76,11 @@ namespace VotaE_API.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            
+
         }
-    
+
         [HttpPut("{id}")]
-        public ActionResult UpdateUsuario([FromRoute] int id, [FromBody] UsuarioModel viewModel)
+        public ActionResult UpdateUsuario([FromRoute] int id, [FromBody] UsuarioViewModel viewModel)
         {
             if (id != viewModel.UsuarioId)
             {
@@ -91,7 +98,7 @@ namespace VotaE_API.Controllers
                 var model = _mapper.Map<UsuarioModel>(viewModel);
                 _usuarioService.UpdateUsuario(model);
 
-                return NoContent(); 
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -108,6 +115,14 @@ namespace VotaE_API.Controllers
                 return NotFound($"Usuário com ID {id} não encontrado.");
 
             return NoContent();
+        }
+
+        [HttpGet("total")]
+        public ActionResult TotalUsuarios()
+        {
+            var totalUsuarios = _usuarioService.TotalUsuarios();
+
+            return Ok(new { totalUsuarios });
         }
     }
 }

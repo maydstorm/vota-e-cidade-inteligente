@@ -21,15 +21,23 @@ namespace VotaE_API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ProjetoViewModel>> GetAllProjetos()
+        public ActionResult<IEnumerable<ProjetoViewModel>> GetAllProjetos([FromQuery] int reference = 0, int tamanho = 10)
         {
-            var projetos = _projetoService.GetAllProjetos();
+            var projetos = _projetoService.GetAllProjetos(reference, tamanho);
 
             if (projetos != null && projetos.Any())
             {
                 var viewModelList = _mapper.Map<IEnumerable<ProjetoViewModel>>(projetos);
+                var ViewModel = new ProjetoPaginacaoViewModel
+                {
+                    Projetos = viewModelList,
+                    PageSize = tamanho,
+                    Ref = reference,
+                    NextRef = (int)viewModelList.Last().ProjetoId
+                };
 
-                return Ok(viewModelList);
+
+                return Ok(ViewModel);
             }
             else
             {

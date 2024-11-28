@@ -4,7 +4,7 @@ namespace VotaE_API.Interface
 {
     public interface IProjetoService
     {
-        IEnumerable<ProjetoModel> GetAllProjetos();
+        IEnumerable<ProjetoModel> GetAllProjetos(int lastReference, int size);
         ProjetoModel GetProjetoById(int id);
         void AddProjeto(ProjetoModel projeto);
         void UpdateProjeto(ProjetoModel projeto);

@@ -14,7 +14,10 @@ namespace VotaE_API.Services
             _usuarioService = usuarioService;
         }
 
-        public IEnumerable<SugestaoModel> GetAllSugestoes() => _repository.GetAll().OrderBy(s => s.SugestaoId);
+        public IEnumerable<SugestaoModel> GetAllSugestoes(int lastReference, int size)
+        {
+            return _repository.GetAll(lastReference, size);
+        } 
 
         public SugestaoModel GetSugestaoById(int id) => _repository.GetSugestaoById(id);
 
@@ -37,7 +40,6 @@ namespace VotaE_API.Services
             _repository.AddSugestao(sugestao);
         }
 
-
         public void UpdateSugestao(SugestaoModel sugestao)
         {
             var sugestaoExistente = _repository.GetSugestaoById(sugestao.SugestaoId);
@@ -58,6 +60,11 @@ namespace VotaE_API.Services
                 return true;
             }
             return false;
+        }
+
+        public int GetSugestaoCount()
+        {
+            return _repository.GetTotalSugestoes();
         }
     }
 }

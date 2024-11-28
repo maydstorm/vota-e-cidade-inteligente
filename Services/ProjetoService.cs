@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using VotaE_API.Interface;
+﻿using VotaE_API.Interface;
 using VotaE_API.Models;
 
 namespace VotaE_API.Services
@@ -17,7 +16,10 @@ namespace VotaE_API.Services
             _projetoRepository = projetoRepository;
         }
 
-        public IEnumerable<ProjetoModel> GetAllProjetos() => _repository.GetAll().OrderBy(p => p.ProjetoId);
+        public IEnumerable<ProjetoModel> GetAllProjetos(int lastReference, int size) 
+        {
+            return _repository.GetAll(lastReference, size);
+        } 
 
         public ProjetoModel GetProjetoById(int id) => _repository.GetById(id);
 

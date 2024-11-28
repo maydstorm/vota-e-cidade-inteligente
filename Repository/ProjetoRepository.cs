@@ -14,9 +14,15 @@ namespace VotaE_API.Repository
             _dbContext = dbContext;
         }
 
-        public IEnumerable<ProjetoModel> GetAll()
+        public IEnumerable<ProjetoModel> GetAll(int lastReference, int size)
         {
-            return _dbContext.Projetos.Include(p => p.Sugestao).ToList();
+            var projetos = _dbContext.Projetos.Where(s => s.ProjetoId > lastReference)
+               .OrderBy(s => s.ProjetoId)
+               .Take(size)
+               .AsNoTracking()
+               .ToList();
+
+            return projetos; ;
         }
 
         public ProjetoModel GetById(int id) => _dbContext.Projetos.Include(p => p.Sugestao).FirstOrDefault(p => p.ProjetoId == id);
