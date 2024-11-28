@@ -68,6 +68,7 @@ builder.Services.AddSingleton(mapper);
 
 #region Autenticação
 
+builder.Services.AddScoped<IAutenticacao, AutenticacaoService>();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -100,6 +101,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

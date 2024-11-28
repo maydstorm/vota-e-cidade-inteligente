@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using VotaE_API.Interface;
 using VotaE_API.Models;
+using VotaE_API.ViewModel.Usuario;
 
 namespace VotaE_API.Services
 {
@@ -15,7 +16,7 @@ namespace VotaE_API.Services
             _passwordHasher = new PasswordHasher<UsuarioModel>();
         }
 
-        public UsuarioModel Authenticate (string email, string senha)
+        public LoginViewModel Authenticate (string email, string senha)
         {
             var usuario = _usuarioRepository.GetByEmail(email);
 
@@ -30,7 +31,12 @@ namespace VotaE_API.Services
                 return null; 
             }
 
-            return usuario;
+            return new LoginViewModel
+            {
+                Email = usuario.Email,
+                Senha = usuario.Senha,
+                Role = usuario.UsuarioRole
+            };
         }
     }
 }
