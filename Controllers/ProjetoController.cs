@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VotaE_API.Interface;
 using VotaE_API.Models;
@@ -8,6 +9,7 @@ namespace VotaE_API.Controllers
 {
     [Route("api/projeto")]
     [ApiController]
+    [Authorize]
     public class ProjetoController : ControllerBase
     {
         private readonly IProjetoService _projetoService;
@@ -46,6 +48,7 @@ namespace VotaE_API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "adm")]
         public ActionResult<ProjetoViewModel> GetProjetoById([FromRoute] int id)
         {
             var projeto = _projetoService.GetProjetoById(id);
@@ -64,6 +67,7 @@ namespace VotaE_API.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "adm")]
         public ActionResult Create([FromBody] ProjetoViewModel projetoViewModel)
         {
             try
@@ -109,6 +113,7 @@ namespace VotaE_API.Controllers
 
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "adm")]
         public ActionResult DeleteProjeto(int id)
         {
             var result = _projetoService.Delete(id);
@@ -119,6 +124,7 @@ namespace VotaE_API.Controllers
         }
 
         [HttpGet("porcentagem/sugestoes/projetos")]
+        [Authorize(Roles = "adm")]
         public ActionResult<object> GetPorcentagemSugestoesProjetos()
         {
             var porcentagem = _projetoService.GetPorcentagemSugestoesProjetos();

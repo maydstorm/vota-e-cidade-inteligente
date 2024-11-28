@@ -1,9 +1,10 @@
 ﻿using VotaE_API.Models;
+using VotaE_API.ViewModel.Usuario;
 
 namespace VotaE_API.Interface
 {
     public interface IAutenticacao
     {
-        UsuarioModel Authenticate(string nome, string senha);
+        LoginViewModel Authenticate(string email, string senha);
     }
 }

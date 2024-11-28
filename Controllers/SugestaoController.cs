@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VotaE_API.Interface;
 using VotaE_API.Models;
@@ -10,6 +11,7 @@ namespace VotaE_API.Controllers
 {
     [Route("api/sugestao/")]
     [ApiController]
+    [Authorize]
     public class SugestaoController : ControllerBase
     {
         private readonly ISugestaoService _sugestaoService;
@@ -122,6 +124,7 @@ namespace VotaE_API.Controllers
         }
 
         [HttpGet("total")]
+        [Authorize(Roles ="adm")]
         public ActionResult GetTotalSugestoes()
         {
             var totalSugestao = _sugestaoService.GetSugestaoCount();

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VotaE_API.Interface;
 using VotaE_API.Models;
@@ -21,6 +22,7 @@ namespace VotaE_API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "adm")]
         public ActionResult<IEnumerable<UsuarioPaginacaoViewModel>> GetAllUsuarios([FromQuery] int reference = 0, int tamanho = 10)
         {
             var usuarios = _usuarioService.GetAllUsuarios(reference, tamanho);
@@ -45,6 +47,7 @@ namespace VotaE_API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "adm")]
         public ActionResult<UsuarioViewModel> GetUsuarioById([FromRoute] int id)
         {
             var usuario = _usuarioService.GetUsuarioById(id);
@@ -118,6 +121,7 @@ namespace VotaE_API.Controllers
         }
 
         [HttpGet("total")]
+        [Authorize(Roles = "adm")]
         public ActionResult TotalUsuarios()
         {
             var totalUsuarios = _usuarioService.TotalUsuarios();

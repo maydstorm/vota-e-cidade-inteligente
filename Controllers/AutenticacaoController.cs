@@ -4,25 +4,25 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using VotaE_API.Interface;
-using VotaE_API.Models;
+using VotaE_API.ViewModel.Usuario;
 
 namespace VotaE_API.Controllers
 {
     [Route("api/autenticacao/")]
     [ApiController]
-    public class AutenticacaoController : Controller
+    public class AutenticacaoController : ControllerBase
     {
-        private readonly IAutenticacao _autenticacao;
+        private readonly IAutenticacao _autenticacaoService;
 
-        public AutenticacaoController(IAutenticacao autenticacao)
+        public AutenticacaoController(IAutenticacao autenticacaoService)
         {
-            _autenticacao = autenticacao;
+            _autenticacaoService = autenticacaoService;
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] UsuarioModel usuario)
+        public ActionResult Login([FromBody] LoginViewModel loginModel)
         {
-            var authenticatedUser = _autenticacao.Authenticate(usuario.Nome, usuario.Senha);
+            var authenticatedUser = _autenticacaoService.Authenticate(loginModel.Email, loginModel.Senha);
 
             if (authenticatedUser == null)
             {
@@ -34,7 +34,7 @@ namespace VotaE_API.Controllers
             return Ok(new { Token = token });
         }
 
-        private string GenerateJwtToken(UsuarioModel usuario)
+        private string GenerateJwtToken(LoginViewModel usuario)
         {
             byte[] secret = Encoding.ASCII.GetBytes("f+ujXAKHk00L5jlMXo2XhAWawsOoihNP1OiAM25lLSO57+X7uBMQgwPju6yzyePi");
             var securityKey = new SymmetricSecurityKey(secret);
@@ -44,11 +44,11 @@ namespace VotaE_API.Controllers
             {
                 Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, usuario.Nome),
-                    new Claim(ClaimTypes.Role, usuario.UsuarioRole),
+                    new Claim(ClaimTypes.Email, usuario.Email),
+                    new Claim(ClaimTypes.Role, usuario.Role),
                     new Claim(ClaimTypes.Hash, Guid.NewGuid().ToString())
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(15),
+                Expires = DateTime.UtcNow.AddMinutes(30),
                 Issuer = "VotaE",
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(secret),
