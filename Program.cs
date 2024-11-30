@@ -84,9 +84,6 @@ builder.Services.AddAuthentication(options =>
             ValidateAudience = false
         };
     });
-
-
-
 #endregion
 
 
