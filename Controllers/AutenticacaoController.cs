@@ -36,7 +36,7 @@ namespace VotaE_API.Controllers
 
                 return Ok(new { Token = token });
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
             {
                 return Unauthorized();
             }

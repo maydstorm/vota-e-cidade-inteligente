@@ -103,7 +103,7 @@ namespace VotaE_API.Controllers
 
                 return NoContent();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return BadRequest("Erro interno do servidor ao atualizar o usuário.");
             }
@@ -125,6 +125,11 @@ namespace VotaE_API.Controllers
         public ActionResult TotalUsuarios()
         {
             var totalUsuarios = _usuarioService.TotalUsuarios();
+
+            if(totalUsuarios == 0)
+            {
+                return NoContent();
+            }
 
             return Ok(new { totalUsuarios });
         }
