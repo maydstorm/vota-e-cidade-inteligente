@@ -85,6 +85,7 @@ namespace VotaE_API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "adm")]
         public ActionResult UpdateProjeto([FromRoute] int id, [FromBody] ProjetoViewModel projetoViewModel)
         {
             if (id != projetoViewModel.ProjetoId)
