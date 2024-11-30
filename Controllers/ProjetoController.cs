@@ -106,7 +106,7 @@ namespace VotaE_API.Controllers
 
                 return NoContent();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return BadRequest("Erro interno do servidor ao atualizar o projeto.");
             }
