@@ -16,8 +16,11 @@ namespace VotaE_API.Services
             _passwordHasher = new PasswordHasher<UsuarioModel>();
         }
 
-        public LoginViewModel Authenticate (string email, string senha)
+        public UsuarioModel Authenticate (string email, string senha)
         {
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(senha))
+                throw new ArgumentException("Email ou senha não podem ser nulos ou vazios.");
+
             var usuario = _usuarioRepository.GetByEmail(email);
 
             if (usuario == null)
@@ -26,17 +29,9 @@ namespace VotaE_API.Services
             }
 
             var result = _passwordHasher.VerifyHashedPassword(usuario, usuario.Senha, senha);
-            if (result == PasswordVerificationResult.Failed)
-            {
-                return null; 
-            }
+            if (result == PasswordVerificationResult.Failed) { return null; }
 
-            return new LoginViewModel
-            {
-                Email = usuario.Email,
-                Senha = usuario.Senha,
-                Role = usuario.UsuarioRole
-            };
+            return usuario;
         }
     }
 }

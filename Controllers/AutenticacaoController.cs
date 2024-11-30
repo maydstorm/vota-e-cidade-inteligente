@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using VotaE_API.Interface;
+using VotaE_API.Models;
 using VotaE_API.ViewModel.Usuario;
 
 namespace VotaE_API.Controllers
@@ -22,19 +23,27 @@ namespace VotaE_API.Controllers
         [HttpPost("login")]
         public ActionResult Login([FromBody] LoginViewModel loginModel)
         {
-            var authenticatedUser = _autenticacaoService.Authenticate(loginModel.Email, loginModel.Senha);
+            try
+            {
+                var usuario = _autenticacaoService.Authenticate(loginModel.Email, loginModel.Senha);
 
-            if (authenticatedUser == null)
+                if (usuario == null)
+                {
+                    return Unauthorized();
+                }
+
+                var token = GenerateJwtToken(usuario);
+
+                return Ok(new { Token = token });
+            }
+            catch (Exception ex) { }
             {
                 return Unauthorized();
             }
-
-            var token = GenerateJwtToken(authenticatedUser);
-
-            return Ok(new { Token = token });
+            
         }
 
-        private string GenerateJwtToken(LoginViewModel usuario)
+        private string GenerateJwtToken(UsuarioModel usuario)
         {
             byte[] secret = Encoding.ASCII.GetBytes("f+ujXAKHk00L5jlMXo2XhAWawsOoihNP1OiAM25lLSO57+X7uBMQgwPju6yzyePi");
             var securityKey = new SymmetricSecurityKey(secret);
@@ -45,7 +54,7 @@ namespace VotaE_API.Controllers
                 Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Email, usuario.Email),
-                    new Claim(ClaimTypes.Role, usuario.Role),
+                    new Claim(ClaimTypes.Role, usuario.UsuarioRole),
                     new Claim(ClaimTypes.Hash, Guid.NewGuid().ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(30),
