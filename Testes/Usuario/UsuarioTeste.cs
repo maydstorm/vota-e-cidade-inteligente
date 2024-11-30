@@ -1,6 +1,9 @@
-﻿namespace VotaE_API.Testes.Usuario
+﻿using NUnit.Framework;
+
+namespace VotaE_API.Testes.Usuario
 {
     public class UsuarioTeste
     {
+        //[Test]
     }
 }
