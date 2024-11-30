@@ -52,9 +52,10 @@ namespace VotaE_API.Services
         public decimal GetPorcentagemSugestoesProjetos()
         {
             var totalSugestoes = _sugestaoRepository.GetTotalSugestoes(); 
-            var totalProjetos = _projetoRepository.GetTotalProjetos();   
+            var totalProjetos = _projetoRepository.GetTotalProjetos();
 
-            if (totalSugestoes == 0) return 0;
+            if (totalSugestoes == 0)
+                return 0;
 
             return ((decimal)totalProjetos / totalSugestoes) * 100;
         }
