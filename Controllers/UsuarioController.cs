@@ -126,6 +126,11 @@ namespace VotaE_API.Controllers
         {
             var totalUsuarios = _usuarioService.TotalUsuarios();
 
+            if(totalUsuarios == 0)
+            {
+                return NoContent();
+            }
+
             return Ok(new { totalUsuarios });
         }
     }
