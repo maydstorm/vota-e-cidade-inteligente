@@ -3,9 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VotaE_API.Interface;
 using VotaE_API.Models;
-using VotaE_API.Services;
 using VotaE_API.ViewModel.Sugestao;
-using VotaE_API.ViewModel.Usuario;
 
 namespace VotaE_API.Controllers
 {
