@@ -66,7 +66,7 @@ namespace VotaE_API.Controllers
 
 
         [HttpPost]
-        public ActionResult Create([FromBody] UsuarioModel viewModel)
+        public ActionResult Create([FromBody] UsuarioViewModel viewModel)
         {
             try
             {
