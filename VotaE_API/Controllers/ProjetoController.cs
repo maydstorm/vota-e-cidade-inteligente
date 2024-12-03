@@ -132,6 +132,18 @@ namespace VotaE_API.Controllers
             return Ok(new { porcentagem });
         }
 
+        
+        [HttpGet("projeto/mais/votado")]
+        public ActionResult<ProjetoViewModel> GetProjetoMaisVotado()
+        {
+            // Adicione este endpoint
+            var projetoMaisVotado = _projetoService.GetProjetoMaisVotado();
 
+            if (projetoMaisVotado == null)
+                return NotFound("Nenhum projeto encontrado.");
+
+            var viewModel = _mapper.Map<ProjetoViewModel>(projetoMaisVotado);
+            return Ok(viewModel);
+        }
     }
 }

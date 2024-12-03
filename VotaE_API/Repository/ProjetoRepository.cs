@@ -54,9 +54,16 @@ namespace VotaE_API.Repository
             return true;
         }
 
-    public int GetTotalProjetos()
+        public int GetTotalProjetos()
         {
             return _dbContext.Projetos.Count();
+        }
+
+        public ProjetoModel GetProjetoMaisVotado()
+        {
+            return _dbContext.Projetos
+                .OrderByDescending(p => p.Votos)
+                .FirstOrDefault();
         }
     }
 

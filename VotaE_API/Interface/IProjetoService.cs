@@ -10,6 +10,7 @@ namespace VotaE_API.Interface
         void UpdateProjeto(ProjetoModel projeto);
         bool Delete(int id);
         decimal GetPorcentagemSugestoesProjetos();
+        ProjetoModel GetProjetoMaisVotado();
 
     }
 }

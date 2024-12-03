@@ -25,6 +25,7 @@ namespace VotaE_API.Services
 
         public void AddProjeto(ProjetoModel projeto)
         {
+            projeto.Votos = new Random().Next(0, 101);
             _repository.AddProjeto(projeto);
         }
 
@@ -66,6 +67,11 @@ namespace VotaE_API.Services
 
             _repository.AddProjeto(projeto);
         }
-
+        public ProjetoModel GetProjetoMaisVotado()
+        {
+            return _repository.GetAll(0, int.MaxValue)
+                              .OrderByDescending(p => p.Votos)
+                              .FirstOrDefault();
+        }
     }
 }
