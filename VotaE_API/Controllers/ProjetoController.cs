@@ -126,6 +126,14 @@ namespace VotaE_API.Controllers
 
         [HttpGet("porcentagem/sugestoes/projetos")]
         [Authorize(Roles = "adm")]
+        public ActionResult<object> GetPorcentagemSugestoesProjetos()
+        {
+            var porcentagem = _projetoService.GetPorcentagemSugestoesProjetos();
+            return Ok(new { porcentagem });
+        }
+
+        
+        [HttpGet("projeto/mais/votado")]
         public ActionResult<ProjetoViewModel> GetProjetoMaisVotado()
         {
             // Adicione este endpoint

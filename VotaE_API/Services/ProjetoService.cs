@@ -69,7 +69,6 @@ namespace VotaE_API.Services
         }
         public ProjetoModel GetProjetoMaisVotado()
         {
-            // Adicione este método
             return _repository.GetAll(0, int.MaxValue)
                               .OrderByDescending(p => p.Votos)
                               .FirstOrDefault();
