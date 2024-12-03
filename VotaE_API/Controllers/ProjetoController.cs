@@ -126,12 +126,16 @@ namespace VotaE_API.Controllers
 
         [HttpGet("porcentagem/sugestoes/projetos")]
         [Authorize(Roles = "adm")]
-        public ActionResult<object> GetPorcentagemSugestoesProjetos()
+        public ActionResult<ProjetoViewModel> GetProjetoMaisVotado()
         {
-            var porcentagem = _projetoService.GetPorcentagemSugestoesProjetos();
-            return Ok(new { porcentagem });
+            // Adicione este endpoint
+            var projetoMaisVotado = _projetoService.GetProjetoMaisVotado();
+
+            if (projetoMaisVotado == null)
+                return NotFound("Nenhum projeto encontrado.");
+
+            var viewModel = _mapper.Map<ProjetoViewModel>(projetoMaisVotado);
+            return Ok(viewModel);
         }
-
-
     }
 }
