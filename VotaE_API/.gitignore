@@ -1,0 +1,13 @@
+# Pastas de build
+bin/
+obj/
+.vs/
+.vscode/
+
+# Arquivos temporários
+*.user
+*.log
+*.tmp
+*.suo
+*.cache
+*.pdb
