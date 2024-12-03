@@ -20,7 +20,7 @@ namespace VotaE_API.Data
         {
             modelBuilder.Entity<UsuarioModel>(entity =>
             {
-                entity.ToTable("TB_Usuario"); //Define o nome da tabela
+                entity.ToTable("TB_Usuario"); 
                 entity.HasKey(e => e.UsuarioId);
                 entity.Property(e => e.Nome).IsRequired();
                 entity.Property(e => e.Senha).IsRequired();
@@ -29,7 +29,7 @@ namespace VotaE_API.Data
 
             modelBuilder.Entity<SugestaoModel>(entity =>
             {
-                entity.ToTable("TB_Sugestao"); //Define o nome da tabela
+                entity.ToTable("TB_Sugestao"); 
                 entity.HasKey(e => e.SugestaoId);
                 entity.Property(e => e.Descricao).IsRequired();
                 entity.Property(e => e.DataCriacao).IsRequired();
@@ -45,7 +45,7 @@ namespace VotaE_API.Data
 
             modelBuilder.Entity<ProjetoModel>(entity =>
             {
-                entity.ToTable("TB_Projetos"); // nome da tabela
+                entity.ToTable("TB_Projetos"); 
                 entity.HasKey(e => e.ProjetoId);
                 entity.Property(e => e.Descricao).IsRequired();
                 entity.Property(e => e.Titulo).IsRequired();
@@ -54,6 +54,8 @@ namespace VotaE_API.Data
                 entity.Property(e => e.DataCadastro).IsRequired().HasColumnType("date");
                 entity.Property(e => e.DataEnvio).IsRequired().HasColumnType("date");
                 entity.Property(e => e.DataAprovacao).IsRequired().HasColumnType("date");
+
+                entity.Property(e => e.Votos).HasColumnType("NUMBER(10)").HasDefaultValue(0).IsRequired();
 
                 //Relacionamento Projeto x Sugestão
                 entity.HasOne(e => e.Sugestao)
