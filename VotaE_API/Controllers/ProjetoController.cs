@@ -133,10 +133,9 @@ namespace VotaE_API.Controllers
         }
 
         
-        [HttpGet("projeto/mais/votado")]
+        [HttpGet("mais/votado")]
         public ActionResult<ProjetoViewModel> GetProjetoMaisVotado()
         {
-            // Adicione este endpoint
             var projetoMaisVotado = _projetoService.GetProjetoMaisVotado();
 
             if (projetoMaisVotado == null)
