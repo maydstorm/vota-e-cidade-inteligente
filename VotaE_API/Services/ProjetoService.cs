@@ -58,8 +58,9 @@ namespace VotaE_API.Services
             if (totalSugestoes == 0)
                 return 0;
 
-            return ((decimal)totalProjetos / totalSugestoes) * 100;
+            return Math.Round(decimal.Divide(totalProjetos * 100, totalSugestoes), 2);
         }
+
         public void AddVotoProjeto(ProjetoModel projeto)
         {
 
@@ -67,6 +68,7 @@ namespace VotaE_API.Services
 
             _repository.AddProjeto(projeto);
         }
+
         public ProjetoModel GetProjetoMaisVotado()
         {
             return _repository.GetAll(0, int.MaxValue)
