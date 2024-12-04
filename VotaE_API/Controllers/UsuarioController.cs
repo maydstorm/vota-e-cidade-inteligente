@@ -83,7 +83,7 @@ namespace VotaE_API.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateUsuario([FromRoute] int id, [FromBody] UsuarioViewModel viewModel)
+        public ActionResult UpdateUsuario([FromRoute] int id, [FromBody] UsuarioModel viewModel)
         {
             if (id != viewModel.UsuarioId)
             {

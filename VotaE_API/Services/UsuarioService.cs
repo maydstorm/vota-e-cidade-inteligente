@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System.Drawing;
-using System.Security.Policy;
 using VotaE_API.Interface;
 using VotaE_API.Models;
 
@@ -40,7 +38,11 @@ namespace VotaE_API.Services
             if (usuarioExiste == null)
                 throw new KeyNotFoundException("Usuário não encontrado.");
 
-            if (usuarioExiste.Senha != usuario.Senha)
+            if (string.IsNullOrWhiteSpace(usuario.Senha))
+            {
+                usuario.Senha = usuarioExiste.Senha;
+            }
+            else if (usuarioExiste.Senha != usuario.Senha) // Só atualiza se a senha for diferente
             {
                 usuario.Senha = _passwordHasher.HashPassword(usuario, usuario.Senha);
             }
