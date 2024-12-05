@@ -128,7 +128,7 @@ namespace VotaE_API.Controllers
 
             if(totalUsuarios == 0)
             {
-                return NoContent();
+                return NotFound("Sem usuários cadastrados");
             }
 
             return Ok(new { totalUsuarios });
