@@ -127,6 +127,11 @@ namespace VotaE_API.Controllers
         {
             var totalSugestao = _sugestaoService.GetSugestaoCount();
 
+            if (totalSugestao == 0)
+            {
+                return NotFound("Sem sugestões cadastrados");
+            }
+
             return Ok(new { totalSugestao });
         }
     }
