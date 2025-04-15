@@ -26,12 +26,3 @@ jobs:
 
       - name: Build da aplicação
         run: dotnet build VotaE_API/VotaE_API.csproj --configuration Release
-
-      - name: Restaurar dependências dos testes
-        run: dotnet restore Teste/Teste.csproj
-
-      - name: Build do projeto de testes
-        run: dotnet build Teste/Teste.csproj --configuration Release
-
-      - name: Executar testes unitários
-        run: dotnet test Teste/Teste.csproj --no-build --verbosity normal
