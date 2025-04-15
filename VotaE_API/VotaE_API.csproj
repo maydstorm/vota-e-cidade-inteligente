@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <None Include=".github\workflows\01-action-merge-master.yml" />
+    <None Include=".github\workflows\02-action-merge-develop.yml" />
   </ItemGroup>
 
 </Project>
