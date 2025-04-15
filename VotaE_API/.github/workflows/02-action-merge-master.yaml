@@ -1,4 +1,4 @@
-﻿name: 02 - PR mesclado na master
+﻿name: 01 - PR mesclado na master
 
 on:
   pull_request:
@@ -19,7 +19,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0'
+          dotnet-version: '8.0.x'
 
       - name: Restaurar dependências
         run: dotnet restore
