@@ -150,7 +150,7 @@ namespace Teste
             _usuarioServiceMock.Setup(service => service.UpdateUsuario(usuarioModel));
 
             // Act
-            var result = _usuarioController.UpdateUsuario(id, viewModel);
+            var result = _usuarioController.UpdateUsuario(id, usuarioModel);
 
             // Assert
             var noContentResult = Assert.IsType<NoContentResult>(result);
@@ -162,7 +162,7 @@ namespace Teste
         {
             // Arrange
             var id = 1;
-            var viewModel = new UsuarioViewModel { UsuarioId = 2, Nome = "Usuário Teste" };
+            var viewModel = new UsuarioModel { UsuarioId = 2, Nome = "Usuário Teste" };
 
             // Act
             var result = _usuarioController.UpdateUsuario(id, viewModel);
@@ -178,7 +178,7 @@ namespace Teste
         {
             // Arrange
             var id = 1;
-            var viewModel = new UsuarioViewModel { UsuarioId = id, Nome = "Usuário Teste" };
+            var viewModel = new UsuarioModel { UsuarioId = id, Nome = "Usuário Teste" };
 
             _usuarioServiceMock.Setup(service => service.GetUsuarioById(id)).Returns((UsuarioModel)null);
 
