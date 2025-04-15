@@ -27,8 +27,4 @@
     <ProjectReference Include="..\VotaE_API\VotaE_API.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Using Include="Xunit" />
-  </ItemGroup>
-
 </Project>
