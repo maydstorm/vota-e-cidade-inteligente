@@ -1,0 +1,37 @@
+name: 02 - PR mesclado na develop
+
+on:
+  pull_request:
+    branches:
+      - develop
+    types:
+      - closed
+
+jobs:
+  build_and_test:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restaurar dependências da aplicação
+        run: dotnet restore VotaE_API/VotaE_API.csproj
+
+      - name: Build da aplicação
+        run: dotnet build VotaE_API/VotaE_API.csproj --configuration Release
+
+      - name: Restaurar dependências dos testes
+        run: dotnet restore Teste/Teste.csproj
+
+      - name: Build do projeto de testes
+        run: dotnet build Teste/Teste.csproj --configuration Release
+
+      - name: Executar testes unitários
+        run: dotnet test Teste/Teste.csproj --no-build --verbosity normal
