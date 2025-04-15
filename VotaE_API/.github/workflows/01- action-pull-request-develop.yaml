@@ -1,13 +1,17 @@
-﻿name: 01 - PR para develop
+﻿name: 01 - PR mesclado na develop
 
 on:
   pull_request:
     branches:
       - develop
+    types:
+      - closed
 
 jobs:
   build_dotnet_project:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout do repositório
         uses: actions/checkout@v4
