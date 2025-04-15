@@ -29,7 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include=".github\workflows\01- action-pull-request-develop.yaml" />
+    <None Include=".github\workflows\01- action-pull-request-develop.yml" />
+    <None Include=".github\workflows\02-action-merge-master.yml" />
   </ItemGroup>
 
 </Project>
