@@ -28,4 +28,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include=".github\workflows\01- action-pull-request-develop.yml" />
+    <None Include=".github\workflows\02-action-merge-master.yml" />
+  </ItemGroup>
+
 </Project>
