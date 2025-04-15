@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include=".github\workflows\02-action-merge-master.yaml" />
+    <None Include=".github\workflows\01-action-merge-master.yaml" />
   </ItemGroup>
 
 </Project>
