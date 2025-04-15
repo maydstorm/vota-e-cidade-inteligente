@@ -1,4 +1,4 @@
-﻿name: 01 - PR mesclado na master
+name: 01 - PR mesclado na master
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ on:
       - closed
 
 jobs:
-  build_dotnet_project:
+  build_and_test:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
@@ -23,6 +23,9 @@ jobs:
 
       - name: Restaurar dependências
         run: dotnet restore
+
+      - name: Limpar projeto
+        run: dotnet clean
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
