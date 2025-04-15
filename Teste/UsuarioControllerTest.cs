@@ -5,6 +5,7 @@ using VotaE_API.Controllers;
 using VotaE_API.Interface;
 using VotaE_API.Models;
 using VotaE_API.ViewModel.Usuario;
+using Xunit;
 
 namespace Teste
 {
