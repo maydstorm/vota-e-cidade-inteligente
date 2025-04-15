@@ -22,13 +22,13 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restaurar dependências
-        run: dotnet restore
+        run: dotnet restore VotaE_API.sln
 
       - name: Limpar projeto
-        run: dotnet clean
+        run: dotnet clean VotaE_API.sln
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build VotaE_API.sln --configuration Release --no-restore
 
       - name: Testes
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test VotaE_API.sln --no-build --verbosity normal
