@@ -26,3 +26,9 @@ jobs:
 
       - name: Build da aplicação
         run: dotnet build VotaE_API/VotaE_API.csproj --configuration Release
+
+      - name: Build da solution
+        run: dotnet build VotaE_API.sln --configuration Release
+
+      - name: Testes
+        run: dotnet test VotaE_API.sln --no-build --verbosity normal
