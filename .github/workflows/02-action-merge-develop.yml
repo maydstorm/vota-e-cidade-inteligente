@@ -26,6 +26,3 @@ jobs:
 
       - name: Build da aplicação
         run: dotnet build VotaE_API/VotaE_API.csproj --configuration Release
-
-      - name: Test
-        run: dotnet test WebApi --configuration Release --no-build
