@@ -21,11 +21,8 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Restaurar dependências da aplicação
-        run: dotnet restore VotaE_API/VotaE_API.csproj
-
-      - name: Build da aplicação
-        run: dotnet build VotaE_API/VotaE_API.csproj --configuration Release
+      - name: Restaurar dependências da solution
+        run: dotnet restore VotaE_API.sln
 
       - name: Build da solution
         run: dotnet build VotaE_API.sln --configuration Release
