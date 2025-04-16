@@ -28,4 +28,4 @@ jobs:
         run: dotnet build VotaE_API/VotaE_API.sln --configuration Release
 
       - name: Testes
-        run: dotnet test VotaE_API/VotaE_API.sln --no-build --verbosity normal
+        run: dotnet test VotaE_API/VotaE_API.sln --verbosity normal
