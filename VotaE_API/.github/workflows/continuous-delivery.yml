@@ -2,7 +2,7 @@ name: continuous-delivery
 
 on:
   push:
-    branches: ["release/main"]
+    branches: ["release/**"]
 
 env:
   IMAGE_NAME: vota-e-cidade-inteligente
