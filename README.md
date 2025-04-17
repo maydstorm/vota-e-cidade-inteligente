@@ -24,4 +24,3 @@ Aplicação C# com integração de GitHub Actions para automação de build, tes
 | 02 - Merge para Master           | Ao fazer merge de um PR para a branch `master` |
 | 03 - Feature Branch              | Ao fazer push em branches com prefixo `feature/` |
 
-## Teste Workflow
