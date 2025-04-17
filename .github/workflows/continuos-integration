@@ -1,9 +1,9 @@
-name: 01 - PR mesclado na master
+name: continuos integration
 
 on:
   pull_request:
     branches:
-      - master
+      - develop
     types:
       - closed
 
