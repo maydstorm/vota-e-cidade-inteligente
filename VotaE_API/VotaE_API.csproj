@@ -29,8 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include=".github\workflows\01-action-merge-master.yml" />
-    <None Include=".github\workflows\02-action-merge-develop.yml" />
+    <None Include=".github\workflows\continuous-delivery.yml" />
+    <None Include=".github\workflows\continuous-integration.yml" />
   </ItemGroup>
 
 </Project>
