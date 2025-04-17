@@ -1,4 +1,4 @@
-name: 02 - PR mesclado na develop
+name: continuos integration
 
 on:
   pull_request:
