@@ -32,12 +32,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 #region Configuracao DB
-var connectionString = builder.Configuration.GetConnectionString("DatabaseConnection");
+var connectionStringBase = builder.Configuration.GetConnectionString("DatabaseConnection");
+
+// Recupera DB_USER e DB_PASSWORD do ambiente
+var dbUser = Environment.GetEnvironmentVariable("DB_USER");
+var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
+
+// Concatena os dados à connection string
+var finalConnectionString = $"{connectionStringBase};User Id={dbUser};Password={dbPassword}";
+
 builder.Services.AddDbContext<DataBaseContext>(
-
-    opt => opt.UseOracle(connectionString).EnableSensitiveDataLogging(true)
-
-    );
+    opt => opt.UseOracle(finalConnectionString).EnableSensitiveDataLogging(true)
+);
 #endregion
 
 #region ServiceCollection
