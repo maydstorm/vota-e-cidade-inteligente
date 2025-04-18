@@ -40,7 +40,6 @@ builder.Services.AddDbContext<DataBaseContext>(
     );
 #endregion
 
-
 #region ServiceCollection
 
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
@@ -110,4 +109,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
