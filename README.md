@@ -35,17 +35,19 @@ O **VOTA-E** é uma plataforma cívica que permite aos cidadãos submeterem suge
 
 ## 🚀 Workflows CI/CD
 
-| Workflow                          | Gatilho                                | Ambiente   |
-|----------------------------------|----------------------------------------|------------|
-| Integração Contínua (CI)         | Pull Request fechada na branch `develop` | `develop`  |
-| Entrega Contínua - Staging (CD)  | Push em branch `release/**`             | `staging`  |
-| Entrega Contínua - Produção (CD) | Push na branch `master`                 | `produção` |
+| Workflow                           | Gatilho                                   | Ambiente   |
+|------------------------------------|-------------------------------------------|------------|
+| Continuous Integration (CI)        | Pull Request fechada na branch `develop`  | `develop`  |
+| Continuous Delivery - Staging (CD) | Push em branch `release/**`               | `staging`  |
+| Continuous Delivery - Produção (CD)| Push na branch `master`                   | `produção` |
+
 
 
 ---
 
 ## 📁 Estrutura do Projeto
 
+```text
 VotaE_API/
 ├── .github/                                         # Workflows de CI/CD
 │   └── workflows/
@@ -74,7 +76,7 @@ VotaE_API/
 
 Abaixo está disponível a collection do Postman com os endpoints da API.
 
-👉 [Baixar Collection](./vota-e-postman/VotaE.postman_collection.json)
+👉 [Baixar Collection](./vota-e-postman/)
 
 ### Como importar no Postman:
 
