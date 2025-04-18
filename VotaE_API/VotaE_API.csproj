@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include=".github\workflows\continuous-delivery-producao.yml" />
     <None Include=".github\workflows\continuous-delivery.yml" />
     <None Include=".github\workflows\continuous-integration.yml" />
   </ItemGroup>
