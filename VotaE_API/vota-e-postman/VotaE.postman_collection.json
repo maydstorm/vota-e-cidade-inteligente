@@ -1,0 +1,399 @@
+{
+	"info": {
+		"_postman_id": "39d2323a-9bf7-4e2a-b6f9-1f12f776e3bc",
+		"name": "VotaE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29666483"
+	},
+	"item": [
+		{
+			"name": "Authenticação",
+			"item": [
+				{
+					"name": "autenticacao_token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heWFyYXRlc3RlQHRlc3RlLmNvbSIsInJvbGUiOiJ1c3VhcmlvIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6IjhiMzVlMGRlLTA1YWQtNGU4ZC1iY2MyLWNkMzZkNzI4MDcxNSIsIm5iZiI6MTczMjgzNjYxOCwiZXhwIjoxNzMyODM4NDE4LCJpYXQiOjE3MzI4MzY2MTgsImlzcyI6IlZvdGFFIn0.0V-ryQlJ3FTDzSdlDhWeg6MnYSZ41qSNVf_qz6bD7PY"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"adm@teste.com\",\r\n  \"senha\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{localhost}}/api/autenticacao/login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "usuario",
+			"item": [
+				{
+					"name": "lista_usuarios",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUB0ZXN0ZS5jb20iLCJyb2xlIjoiYWRtIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6ImQxMDAwOTRiLWY1NGEtNGY2MC05YzFmLWMzNjc5ODRiNGYzZCIsIm5iZiI6MTczMzM0NjcyOSwiZXhwIjoxNzMzMzQ4NTI5LCJpYXQiOjE3MzMzNDY3MjksImlzcyI6IlZvdGFFIn0.L7FtRoa_4pzPBDQO_tTJAiO8kYtx8l-vB-DWpRvIaDA"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{localhost}}/api/usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "usuario_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUB0ZXN0ZS5jb20iLCJyb2xlIjoiYWRtIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6ImQxMDAwOTRiLWY1NGEtNGY2MC05YzFmLWMzNjc5ODRiNGYzZCIsIm5iZiI6MTczMzM0NjcyOSwiZXhwIjoxNzMzMzQ4NTI5LCJpYXQiOjE3MzMzNDY3MjksImlzcyI6IlZvdGFFIn0.L7FtRoa_4pzPBDQO_tTJAiO8kYtx8l-vB-DWpRvIaDA"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{localhost}}/api/usuario/201"
+					},
+					"response": []
+				},
+				{
+					"name": "update_usuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UsuarioId\": 8,\r\n    \"Nome\" : \"Victória Camargo\",\r\n    \"Email\": \"victeste@teste.com\",\r\n    \"Senha\": \"123\",\r\n    \"Telefone\": \"\",\r\n    \"UsuarioRole\": \"usuario\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{localhost}}/api/usuario/8"
+					},
+					"response": []
+				},
+				{
+					"name": "adicionar_usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nome\": \"Hélia Lopes\",\r\n    \"Email\":\"heliateste@teste.com\",\r\n    \"Senha\": \"1234\",\r\n    \"Telefone\": \"1235\",\r\n    \"UsuarioRole\": \"user\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{localhost}}/api/usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "excluir_usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUB0ZXN0ZS5jb20iLCJyb2xlIjoiYWRtIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6ImQxMDAwOTRiLWY1NGEtNGY2MC05YzFmLWMzNjc5ODRiNGYzZCIsIm5iZiI6MTczMzM0NjcyOSwiZXhwIjoxNzMzMzQ4NTI5LCJpYXQiOjE3MzMzNDY3MjksImlzcyI6IlZvdGFFIn0.L7FtRoa_4pzPBDQO_tTJAiO8kYtx8l-vB-DWpRvIaDA"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{localhost}}/api/usuario/17"
+					},
+					"response": []
+				},
+				{
+					"name": "total_usuarios",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUB0ZXN0ZS5jb20iLCJyb2xlIjoiYWRtIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6Ijk3NWM5NTE0LWVlZjItNDY1ZS05N2NmLWEyN2U2Yjc4ZDBjYSIsIm5iZiI6MTczMzM0OTc0MiwiZXhwIjoxNzMzMzUxNTQyLCJpYXQiOjE3MzMzNDk3NDIsImlzcyI6IlZvdGFFIn0.59-poxqxSgz_5qFu1oc2nppHrYqXSXl7XR26HZvF6lY"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{localhost}}/api/usuario/total"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "sugestao",
+			"item": [
+				{
+					"name": "lista_sugestoes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUB0ZXN0ZS5jb20iLCJyb2xlIjoiYWRtIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6ImE4YjBhZTNhLWE3ZjMtNDRhMC1hY2Y4LTIxNTE5YTIyMmFmOSIsIm5iZiI6MTczMzM0NzI5OSwiZXhwIjoxNzMzMzQ5MDk5LCJpYXQiOjE3MzMzNDcyOTksImlzcyI6IlZvdGFFIn0.qAXzlh4x6ftmHvjJTO1bdQvcWiKXT1UgwMKjURsXfW4"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{localhost}}/api/sugestao"
+					},
+					"response": []
+				},
+				{
+					"name": "total_sugestoes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUB0ZXN0ZS5jb20iLCJyb2xlIjoiYWRtIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6ImE4YjBhZTNhLWE3ZjMtNDRhMC1hY2Y4LTIxNTE5YTIyMmFmOSIsIm5iZiI6MTczMzM0NzI5OSwiZXhwIjoxNzMzMzQ5MDk5LCJpYXQiOjE3MzMzNDcyOTksImlzcyI6IlZvdGFFIn0.qAXzlh4x6ftmHvjJTO1bdQvcWiKXT1UgwMKjURsXfW4"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{localhost}}/api/sugestao/total"
+					},
+					"response": []
+				},
+				{
+					"name": "sugestao_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUB0ZXN0ZS5jb20iLCJyb2xlIjoiYWRtIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6ImE4YjBhZTNhLWE3ZjMtNDRhMC1hY2Y4LTIxNTE5YTIyMmFmOSIsIm5iZiI6MTczMzM0NzI5OSwiZXhwIjoxNzMzMzQ5MDk5LCJpYXQiOjE3MzMzNDcyOTksImlzcyI6IlZvdGFFIn0.qAXzlh4x6ftmHvjJTO1bdQvcWiKXT1UgwMKjURsXfW4"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{localhost}}/api/sugestao/21"
+					},
+					"response": []
+				},
+				{
+					"name": "adicionar_sugestao",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUB0ZXN0ZS5jb20iLCJyb2xlIjoiYWRtIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6ImE4YjBhZTNhLWE3ZjMtNDRhMC1hY2Y4LTIxNTE5YTIyMmFmOSIsIm5iZiI6MTczMzM0NzI5OSwiZXhwIjoxNzMzMzQ5MDk5LCJpYXQiOjE3MzMzNDcyOTksImlzcyI6IlZvdGFFIn0.qAXzlh4x6ftmHvjJTO1bdQvcWiKXT1UgwMKjURsXfW4"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Descricao\": \"Teste de autenticacao\",\r\n    \"Titulo\": \"Teste\",\r\n    \"Localizacao\": \"Avenidade Tiquatira\",\r\n    \"Observacao\": \"Essa avenida tem um espaço que seria muito bom para construir um parque para as crianças terem um espaço de diversão.\",\r\n    \"DataCriacao\": \"2024-11-24T00:00:00\",\r\n    \"UsuarioId\": 1,\r\n    \"Usuario\": {\r\n        \"UsuarioId\": 1,\r\n        \"Nome\": \"Mayara Dias\",\r\n        \"Email\": \"mayarateste@teste.com\",\r\n        \"Senha\": \"123\",\r\n        \"Telefone\": \"1234560\",\r\n        \"UsuarioRole\": \"adm\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{localhost}}/api/sugestao"
+					},
+					"response": []
+				},
+				{
+					"name": "update_sugestao",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUB0ZXN0ZS5jb20iLCJyb2xlIjoiYWRtIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6ImE4YjBhZTNhLWE3ZjMtNDRhMC1hY2Y4LTIxNTE5YTIyMmFmOSIsIm5iZiI6MTczMzM0NzI5OSwiZXhwIjoxNzMzMzQ5MDk5LCJpYXQiOjE3MzMzNDcyOTksImlzcyI6IlZvdGFFIn0.qAXzlh4x6ftmHvjJTO1bdQvcWiKXT1UgwMKjURsXfW4"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"SugestaoId\": 22,\r\n    \"Descricao\": \"Criar um parquinho paras as crianças na praça\",\r\n    \"Titulo\": \"TESTE Controller\",\r\n    \"Localizacao\": \"UPDATE TESTE\",\r\n    \"Observacao\": \"Essa avenida tem um espaço que seria muito bom para construir um parque para as crianças terem um espaço de diversão.\",\r\n    \"DataCriacao\": \"2024-11-28T00:00:00\",\r\n    \"UsuarioId\": 1,\r\n    \"Usuario\": {\r\n        \"usuarioId\": 1,\r\n        \"nome\": \"Mayara Dias\",\r\n        \"email\": \"mayarateste@teste.com\",\r\n        \"telefone\": \"1234560\",\r\n        \"usuarioRole\": \"adm\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{localhost}}/api/sugestao/22"
+					},
+					"response": []
+				},
+				{
+					"name": "excluir_sugestao",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUB0ZXN0ZS5jb20iLCJyb2xlIjoiYWRtIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6ImE4YjBhZTNhLWE3ZjMtNDRhMC1hY2Y4LTIxNTE5YTIyMmFmOSIsIm5iZiI6MTczMzM0NzI5OSwiZXhwIjoxNzMzMzQ5MDk5LCJpYXQiOjE3MzMzNDcyOTksImlzcyI6IlZvdGFFIn0.qAXzlh4x6ftmHvjJTO1bdQvcWiKXT1UgwMKjURsXfW4"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{localhost}}/api/sugestao/4"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "projeto",
+			"item": [
+				{
+					"name": "lista_projetos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUB0ZXN0ZS5jb20iLCJyb2xlIjoiYWRtIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6ImE4YjBhZTNhLWE3ZjMtNDRhMC1hY2Y4LTIxNTE5YTIyMmFmOSIsIm5iZiI6MTczMzM0NzI5OSwiZXhwIjoxNzMzMzQ5MDk5LCJpYXQiOjE3MzMzNDcyOTksImlzcyI6IlZvdGFFIn0.qAXzlh4x6ftmHvjJTO1bdQvcWiKXT1UgwMKjURsXfW4"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{localhost}}/api/projeto"
+					},
+					"response": []
+				},
+				{
+					"name": "projeto_id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUB0ZXN0ZS5jb20iLCJyb2xlIjoiYWRtIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6ImE4YjBhZTNhLWE3ZjMtNDRhMC1hY2Y4LTIxNTE5YTIyMmFmOSIsIm5iZiI6MTczMzM0NzI5OSwiZXhwIjoxNzMzMzQ5MDk5LCJpYXQiOjE3MzMzNDcyOTksImlzcyI6IlZvdGFFIn0.qAXzlh4x6ftmHvjJTO1bdQvcWiKXT1UgwMKjURsXfW4"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{localhost}}/api/projeto/3"
+					},
+					"response": []
+				},
+				{
+					"name": "update_projeto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUB0ZXN0ZS5jb20iLCJyb2xlIjoiYWRtIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6ImE4YjBhZTNhLWE3ZjMtNDRhMC1hY2Y4LTIxNTE5YTIyMmFmOSIsIm5iZiI6MTczMzM0NzI5OSwiZXhwIjoxNzMzMzQ5MDk5LCJpYXQiOjE3MzMzNDcyOTksImlzcyI6IlZvdGFFIn0.qAXzlh4x6ftmHvjJTO1bdQvcWiKXT1UgwMKjURsXfW4"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"projetoId\": 25,\r\n  \"titulo\": \"Construir um parquinho\",\r\n  \"descricao\": \"Criar um parquinho paras as crianças na praça\",\r\n  \"status\": \"Aprovado\",\r\n  \"dataCadastro\": \"2024-11-25T22:09:01\",\r\n  \"dataEnvio\": \"2024-11-27T23:09:17.343Z\",\r\n  \"dataAprovacao\": \"2024-11-27T23:09:17.343Z\",\r\n  \"sugestaoId\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{localhost}}/api/projeto/25"
+					},
+					"response": []
+				},
+				{
+					"name": "adicionar_projeto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUB0ZXN0ZS5jb20iLCJyb2xlIjoiYWRtIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6ImE4YjBhZTNhLWE3ZjMtNDRhMC1hY2Y4LTIxNTE5YTIyMmFmOSIsIm5iZiI6MTczMzM0NzI5OSwiZXhwIjoxNzMzMzQ5MDk5LCJpYXQiOjE3MzMzNDcyOTksImlzcyI6IlZvdGFFIn0.qAXzlh4x6ftmHvjJTO1bdQvcWiKXT1UgwMKjURsXfW4"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"titulo\": \"Construir um parquinho\",\r\n  \"descricao\": \"Criar um parquinho paras as crianças na praça\",\r\n  \"status\": \"Aprovado\",\r\n  \"dataCadastro\": \"2024-11-25T22:09:01\",\r\n  \"dataEnvio\": \"2024-11-27T23:09:17.343Z\",\r\n  \"dataAprovacao\": \"2024-11-27T23:09:17.343Z\",\r\n  \"sugestaoId\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{localhost}}/api/projeto"
+					},
+					"response": []
+				},
+				{
+					"name": "excluir_projeto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUB0ZXN0ZS5jb20iLCJyb2xlIjoiYWRtIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6ImE4YjBhZTNhLWE3ZjMtNDRhMC1hY2Y4LTIxNTE5YTIyMmFmOSIsIm5iZiI6MTczMzM0NzI5OSwiZXhwIjoxNzMzMzQ5MDk5LCJpYXQiOjE3MzMzNDcyOTksImlzcyI6IlZvdGFFIn0.qAXzlh4x6ftmHvjJTO1bdQvcWiKXT1UgwMKjURsXfW4"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{localhost}}/api/projeto/26"
+					},
+					"response": []
+				},
+				{
+					"name": "lista_porcentagem/sugestoes/projetos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUB0ZXN0ZS5jb20iLCJyb2xlIjoiYWRtIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6Ijk3NWM5NTE0LWVlZjItNDY1ZS05N2NmLWEyN2U2Yjc4ZDBjYSIsIm5iZiI6MTczMzM0OTc0MiwiZXhwIjoxNzMzMzUxNTQyLCJpYXQiOjE3MzMzNDk3NDIsImlzcyI6IlZvdGFFIn0.59-poxqxSgz_5qFu1oc2nppHrYqXSXl7XR26HZvF6lY"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{localhost}}/api/projeto/porcentagem/sugestoes/projetos"
+					},
+					"response": []
+				},
+				{
+					"name": "lista_projeto/mais/votado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbUB0ZXN0ZS5jb20iLCJyb2xlIjoiYWRtIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvaGFzaCI6Ijk3NWM5NTE0LWVlZjItNDY1ZS05N2NmLWEyN2U2Yjc4ZDBjYSIsIm5iZiI6MTczMzM0OTc0MiwiZXhwIjoxNzMzMzUxNTQyLCJpYXQiOjE3MzMzNDk3NDIsImlzcyI6IlZvdGFFIn0.59-poxqxSgz_5qFu1oc2nppHrYqXSXl7XR26HZvF6lY"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{localhost}}/api/projeto/mais/votado"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "localhost",
+			"value": "https://localhost:7060"
+		}
+	]
+}
