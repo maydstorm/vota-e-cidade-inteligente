@@ -86,8 +86,12 @@ builder.Services.AddAuthentication(options =>
     });
 #endregion
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-builder.WebHost.UseUrls($"http://*:{port}");
+#if !DEBUG
+    var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+    builder.WebHost.UseUrls($"http://*:{port}");
+
+#endif
+
 
 var app = builder.Build();
 
