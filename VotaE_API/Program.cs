@@ -14,22 +14,37 @@ using VotaE_API.ViewModel.Projeto;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Detecta se estamos rodando em Docker (por env var ou ausência do launchSettings)
+var isDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true"
+               || Environment.GetEnvironmentVariable("PORT") != null;
+
+if (isDocker)
+{
+    var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+    builder.WebHost.UseUrls($"http://*:{port}");
+}
+
+
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 #region Configuracao DB
-var connectionString = builder.Configuration.GetConnectionString("DatabaseConnection");
+var connectionStringBase = builder.Configuration.GetConnectionString("DatabaseConnection");
+
+// Recupera DB_USER e DB_PASSWORD do ambiente
+var dbUser = Environment.GetEnvironmentVariable("DB_USER");
+var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
+
+// Concatena os dados à connection string
+var finalConnectionString = $"{connectionStringBase};User Id={dbUser};Password={dbPassword}";
+
 builder.Services.AddDbContext<DataBaseContext>(
-
-    opt => opt.UseOracle(connectionString).EnableSensitiveDataLogging(true)
-
-    );
+    opt => opt.UseOracle(finalConnectionString).EnableSensitiveDataLogging(true)
+);
 #endregion
-
 
 #region ServiceCollection
 

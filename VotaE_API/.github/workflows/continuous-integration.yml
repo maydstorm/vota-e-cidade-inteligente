@@ -1,9 +1,9 @@
-name: 01 - PR mesclado na master
+name: continuos integration
 
 on:
   pull_request:
     branches:
-      - master
+      - develop
     types:
       - closed
 
@@ -21,14 +21,11 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Restaurar dependências
+      - name: Restaurar dependências da solution
         run: dotnet restore VotaE_API/VotaE_API.sln
 
-      - name: Limpar projeto
-        run: dotnet clean VotaE_API/VotaE_API.sln
-
-      - name: Build Solution
+      - name: Build da solution
         run: dotnet build VotaE_API/VotaE_API.sln --configuration Release
 
       - name: Testes
-        run: dotnet test VotaE_API/VotaE_API.sln --no-build --verbosity normal
+        run: dotnet test VotaE_API/VotaE_API.sln --verbosity normal
