@@ -71,6 +71,7 @@ VotaE_API/
 ├── VotaE_API.http                                   # Arquivo de testes de endpoints HTTP
 ├── README.md                                        # Documentação do projeto
 └── .gitignore                                       # Ignora arquivos desnecessários no Git
+```
 
 ## 📥 Collection Postman
 
