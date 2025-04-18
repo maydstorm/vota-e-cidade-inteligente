@@ -40,7 +40,6 @@ builder.Services.AddDbContext<DataBaseContext>(
     );
 #endregion
 
-
 #region ServiceCollection
 
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
@@ -96,12 +95,6 @@ builder.Services.AddAuthentication(options =>
     });
 #endregion
 
-#if !DEBUG
-    var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-    builder.WebHost.UseUrls($"http://*:{port}");
-
-#endif
-
 
 var app = builder.Build();
 
@@ -116,5 +109,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-
