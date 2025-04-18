@@ -77,7 +77,8 @@ VotaE_API/
 
 Abaixo está disponível a collection do Postman com os endpoints da API.
 
-👉 [Baixar Collection](./vota-e-postman/)
+👉 [Baixar Collection](https://github.com/seu-usuario/seu-repositorio/blob/develop/VotaE_API/vota-e-postman/VotaE.postman_collection.json?raw=true)
+
 
 ### Como importar no Postman:
 
