@@ -75,10 +75,15 @@ VotaE_API/
 
 ## 📥 Collection Postman
 
-Abaixo está disponível a collection do Postman com os endpoints da API.
+A collection com os endpoints da API está disponível diretamente no repositório.
 
-👉 [Baixar Collection](vota-e-cidade-inteligente/VotaE_API/vota-e-postman)
+🗂️ Caminho para localizar:
 
+```text
+VotaE_API/
+└── vota-e-postman/
+    └── VotaE.postman_collection.json
+```
 
 ### Como importar no Postman:
 
