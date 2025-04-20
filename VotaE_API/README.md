@@ -1,4 +1,4 @@
-﻿# Nome do Projeto
+VOTA-E API
 
 Aplicação C# com integração de GitHub Actions para automação de build, testes e deploy.
 
