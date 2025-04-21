@@ -1,0 +1,443 @@
+{
+	"info": {
+		"_postman_id": "03914b6e-a636-476f-9b17-1a9cc253850a",
+		"name": "VotaE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29621754"
+	},
+	"item": [
+		{
+			"name": "autenticação",
+			"item": [
+				{
+					"name": "autenticacao_token",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "usuario",
+			"item": [
+				{
+					"name": "lista_usuarios",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhostJ}}/api/usuario",
+							"host": [
+								"{{localhostJ}}"
+							],
+							"path": [
+								"api",
+								"usuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "usuario_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhostJ}}/api/usuario/11",
+							"host": [
+								"{{localhostJ}}"
+							],
+							"path": [
+								"api",
+								"usuario",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_usuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UsuarioId\": 11,\r\n    \"Nome\" : \"Andressa\",\r\n    \"Email\": \"Andressa@teste.com\",\r\n    \"Senha\": \"senha123\",\r\n    \"Telefone\": \"1234560\",\r\n    \"UsuarioRole\": \"usuario\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/usuario",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"usuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "adicionar_usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"Titulo\": \"Título do projeto\",\r\n  \"Usuario\": \"Nome do usuário\",\r\n  \"Descricao\": \"Descrição detalhada do projeto\",\r\n  \"Localizacao\": \"Localização do projeto\",\r\n  \"nome\": \"JuliaTeste\",\r\n  \"email\": \"JuliaTeste@gmail.com\",\r\n  \"senha\": \"12345678\",\r\n  \"telefone\": \"JuliaTeste\",\r\n  \"usuarioRole\": \"usuario\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7060/api/sugestao",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7060",
+							"path": [
+								"api",
+								"sugestao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "excluir_usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/usuario/14",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"usuario",
+								"14"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "sugestao",
+			"item": [
+				{
+					"name": "lista_sugestoes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/sugestao",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"sugestao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sugestao_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/sugestao/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"sugestao",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "adicionar_sugestao",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Descricao\": \"Criar um parquinho paras as crianças na praça\",\r\n    \"Titulo\": \"Construir um parquinho\",\r\n    \"Localizacao\": \"Avenidade Tiquatira\",\r\n    \"Observacao\": \"Essa avenida tem um espaço que seria muito bom para construir um parque para as crianças terem um espaço de diversão.\",\r\n    \"DataCriacao\": \"2024-11-24T00:00:00\",\r\n    \"UsuarioId\": 1,\r\n    \"Usuario\": {\r\n        \"UsuarioId\": 1,\r\n        \"Nome\": \"Mayara Dias\",\r\n        \"Email\": \"mayarateste@teste.com\",\r\n        \"Senha\": \"123\",\r\n        \"Telefone\": \"1234560\",\r\n        \"UsuarioRole\": \"adm\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/sugestao",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"sugestao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_sugestao",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"SugestaoId\": 12,\r\n    \"Descricao\": \"Criar um parquinho paras as crianças na praça\",\r\n    \"Titulo\": \"Construir um parquinho\",\r\n    \"Localizacao\": \"UPDATE TESTE\",\r\n    \"Observacao\": \"Essa avenida tem um espaço que seria muito bom para construir um parque para as crianças terem um espaço de diversão.\",\r\n    \"DataCriacao\": \"2024-11-24T00:00:00\",\r\n    \"UsuarioId\": 1,\r\n    \"Usuario\": {\r\n        \"UsuarioId\": 1,\r\n        \"Nome\": \"Mayara Dias\",\r\n        \"Email\": \"mayarateste@teste.com\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/sugestao/7",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"sugestao",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "excluir_sugestao",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/sugestao/7",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"sugestao",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "projeto",
+			"item": [
+				{
+					"name": "lista_projetos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{localhost}}/api/projeto",
+							"protocol": "https",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"projeto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "lista_porcentagem/sugestoes/projetos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{localhost}}/api/projeto/porcentagem/sugestoes/projetos",
+							"protocol": "https",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"projeto",
+								"porcentagem",
+								"sugestoes",
+								"projetos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "lista_projeto/mais/votado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{localhost}}/api/projeto/porcentagem/sugestoes/projetos",
+							"protocol": "https",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"projeto",
+								"porcentagem",
+								"sugestoes",
+								"projetos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "projeto_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7060/api/projeto/15",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7060",
+							"path": [
+								"api",
+								"projeto",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_projeto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"projetoId\": 15,\r\n  \"titulo\": \"JuliaTeste\",\r\n  \"descricao\": \"JuliaTeste\",\r\n  \"status\": \"JuliaTeste\",\r\n  \"dataCadastro\": \"2024-11-27T22:55:05.341Z\",\r\n  \"dataEnvio\": \"2024-11-27T22:55:05.341Z\",\r\n  \"dataAprovacao\": \"2024-11-27T22:55:05.341Z\",\r\n  \"sugestaoId\": 12\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7060/api/projeto/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7060",
+							"path": [
+								"api",
+								"projeto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "adicionar_projeto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"projetoId\": 15,\r\n  \"titulo\": \"string\",\r\n  \"descricao\": \"string\",\r\n  \"status\": \"string\",\r\n  \"dataCadastro\": \"2024-11-27T23:09:17.343Z\",\r\n  \"dataEnvio\": \"2024-11-27T23:09:17.343Z\",\r\n  \"dataAprovacao\": \"2024-11-27T23:09:17.343Z\",\r\n  \"sugestaoId\": 12\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhostJ}}/api/projeto",
+							"host": [
+								"{{localhostJ}}"
+							],
+							"path": [
+								"api",
+								"projeto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "excluir_projeto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/projeto/11",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"projeto",
+								"11"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "localhost",
+			"value": "https://localhost:7060"
+		},
+		{
+			"key": "localhostJ",
+			"value": "https://localhost:7060"
+		}
+	]
+}
