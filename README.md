@@ -93,22 +93,29 @@ VotaE_API/
 4. Selecione o arquivo `VotaE.postman_collection.json`.
 5. A collection será adicionada automaticamente.
 
+---
+
 ## ▶️ Como Inicializar e Executar o Projeto
 Você pode rodar a API localmente de duas formas: utilizando o .NET CLI ou via Docker.
 
 ⚙️ Opção 1: Executar com .NET (sem Docker)
 
-Clone e acesse o repositório com os comandos:
+1. Clone e acesse o repositório com os comandos:
 - git clone https://github.com/maydstorm/vota-e-cidade-inteligente.git
 - cd vota-e-cidade-inteligente/VotaE_API
 
-Compile e execute o projeto com os comandos:
+2. Compile e execute o projeto com os comandos:
 - dotnet restore
 - dotnet build
 - dotnet run
 
-Acesse a API no navegador:
-http://localhost:5000/swagger
+3. Acesse a API no navegador:
+A porta pode variar!
+Por padrão, o Swagger será acessível em:
+http://localhost:7060/swagger
+
+Caso essa porta não funcione, verifique qual porta está sendo usada no terminal ao iniciar a aplicação.
+
 
 🐳 Opção 2: Executar com Docker
 
@@ -118,7 +125,7 @@ No diretório VotaE_API, construa a imagem Docker com o comando:
 
 Execute o container da API com o comando:
 
-- docker run -d -p 5000:80 --name votae-api-container votae-api
+- docker run -d -p <porta_escolhida> --name votae-api-container votae-api
 
 Acesse a API:
-http://localhost:5000/swagger
+http://localhost:<porta_escolhida>/swagger
