@@ -4,7 +4,7 @@ namespace VotaE_API.Interface
 {
     public interface IUsuarioService
     {
-        IEnumerable<UsuarioModel> GetAllUsuarios(int lastReference, int size);
+        IEnumerable<UsuarioModel> GetAllUsuarios();
         UsuarioModel GetUsuarioById(int id);
         UsuarioModel GetByEmail(string email);
         void AddUsuario(UsuarioModel usuario);

@@ -14,11 +14,10 @@ namespace VotaE_API.Repository
             _dbContext = dbContext;
         }
 
-        public IEnumerable<UsuarioModel> GetAll(int lastReference, int size)
+        public IEnumerable<UsuarioModel> GetAll()
         {
-            var usuarios = _dbContext.Usuarios.Where( u => u.UsuarioId > lastReference)
+            var usuarios = _dbContext.Usuarios
                 .OrderBy( u => u.UsuarioId)
-                .Take(size)
                 .AsNoTracking()
                 .ToList();
 

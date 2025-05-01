@@ -15,9 +15,9 @@ namespace VotaE_API.Services
             _passwordHasher = new PasswordHasher<UsuarioModel>();
         }
 
-        public IEnumerable<UsuarioModel> GetAllUsuarios(int lastReference, int size) 
+        public IEnumerable<UsuarioModel> GetAllUsuarios() 
         { 
-            return _repository.GetAll(lastReference, size);
+            return _repository.GetAll();
         }
     
 

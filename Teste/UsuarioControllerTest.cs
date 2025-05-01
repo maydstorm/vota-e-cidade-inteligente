@@ -32,33 +32,36 @@ namespace Teste
             new UsuarioModel { UsuarioId = 2, Nome = "Usuário 2" }
             };
 
-            _usuarioServiceMock.Setup(service => service.GetAllUsuarios(It.IsAny<int>(), It.IsAny<int>())).Returns(usuarios);
+            _usuarioServiceMock.Setup(service => service.GetAllUsuarios()).Returns(usuarios);
 
             var usuariosViewModel = usuarios.Select(u => new UsuarioViewModel { UsuarioId = u.UsuarioId, Nome = u.Nome });
-            _mapperMock.Setup(mapper => mapper.Map<IEnumerable<UsuarioViewModel>>(It.IsAny<IEnumerable<UsuarioModel>>()))
-                .Returns(usuariosViewModel);
+            _mapperMock.Setup(mapper => mapper.Map<IEnumerable<UsuarioViewModel>>(It.IsAny<IEnumerable<UsuarioModel>>())).Returns(usuariosViewModel);
 
             // Act
-            var result = _usuarioController.GetAllUsuarios(0, 10);
+            var result = _usuarioController.GetAllUsuarios();
 
             //Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
-            var viewModel = Assert.IsType<UsuarioPaginacaoViewModel>(okResult.Value);
+            var viewModelList = Assert.IsAssignableFrom<IEnumerable<UsuarioViewModel>>(okResult.Value);
+            var usuariosArray = viewModelList.ToArray(); 
 
-            Assert.Equal(2, viewModel.Usuarios.Count());
-            Assert.Equal(10, viewModel.PageSize);
-            Assert.Equal(2, viewModel.NextRef);
+            Assert.Equal(2, usuariosArray.Length);
+            Assert.Equal(1, usuariosArray[0].UsuarioId);
+            Assert.Equal("Usuário 1", usuariosArray[0].Nome);
+            Assert.Equal(2, usuariosArray[1].UsuarioId);
+            Assert.Equal("Usuário 2", usuariosArray[1].Nome);
+
         }
 
         [Fact]
         public void GetAllUsuarios_Return_NotFound()
         {
             // Arrange
-            _usuarioServiceMock.Setup(service => service.GetAllUsuarios(It.IsAny<int>(), It.IsAny<int>()))
-                .Returns(new List<UsuarioModel>());
+            _usuarioServiceMock.Setup(service => service.GetAllUsuarios())
+                .Returns([]);
 
             // Act
-            var result = _usuarioController.GetAllUsuarios(0, 10);
+            var result = _usuarioController.GetAllUsuarios();
 
             // Assert
             Assert.IsType<NoContentResult>(result.Result);
