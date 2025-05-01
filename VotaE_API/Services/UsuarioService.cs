@@ -21,19 +21,23 @@ namespace VotaE_API.Services
         }
     
 
-        public UsuarioModel GetUsuarioById(int id) => _repository.GetById(id);
+        public UsuarioModel GetUsuarioById(int id) => _repository.GetUsuarioById(id);
 
         public UsuarioModel GetByEmail (string email) => _repository.GetByEmail(email);
 
         public void AddUsuario(UsuarioModel usuario)
         {
+            var existente = _repository.GetByEmail(usuario.Email);
+            if (existente != null)
+                throw new Exception("Já existe um usuário com este e-mail.");
+
             usuario.Senha = _passwordHasher.HashPassword(usuario, usuario.Senha);
             _repository.AddUsuario(usuario);
         }
 
         public void UpdateUsuario(UsuarioModel usuario) 
         {
-            var usuarioExiste = _repository.GetById(usuario.UsuarioId);
+            var usuarioExiste = _repository.GetUsuarioById(usuario.UsuarioId);
 
             if (usuarioExiste == null)
                 throw new KeyNotFoundException("Usuário não encontrado.");
@@ -52,7 +56,7 @@ namespace VotaE_API.Services
 
         public bool Delete(int id)
         {
-            var usuario = _repository.GetById(id);
+            var usuario = _repository.GetUsuarioById(id);
             if (usuario != null)
             {
                 _repository.DeleteUsuario(id); 
