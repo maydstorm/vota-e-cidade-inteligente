@@ -25,7 +25,7 @@ namespace VotaE_API.Repository
             return usuarios;
         }
 
-        public UsuarioModel GetById(int id) => _dbContext.Usuarios.Find(id);
+        public UsuarioModel GetUsuarioById(int id) => _dbContext.Usuarios.Find(id);
 
         public UsuarioModel GetByEmail(string email)
         {
