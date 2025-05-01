@@ -23,22 +23,15 @@ namespace VotaE_API.Controllers
 
         [HttpGet]
         [Authorize(Roles = "adm")]
-        public ActionResult<IEnumerable<UsuarioPaginacaoViewModel>> GetAllUsuarios([FromQuery] int reference = 0, int tamanho = 10)
+        public ActionResult<IEnumerable<UsuarioViewModel>> GetAllUsuarios()
         {
-            var usuarios = _usuarioService.GetAllUsuarios(reference, tamanho);
+            var usuarios = _usuarioService.GetAllUsuarios();
 
             if (usuarios != null && usuarios.Any())
             {
                 var viewModelList = _mapper.Map<IEnumerable<UsuarioViewModel>>(usuarios);
-                var ViewModel = new UsuarioPaginacaoViewModel
-                {
-                    Usuarios = viewModelList,
-                    PageSize = tamanho,
-                    Ref = reference,
-                    NextRef = (int)viewModelList.Last().UsuarioId
-                };
 
-                return Ok(ViewModel);
+                return Ok(viewModelList);
             }
             else
             {
