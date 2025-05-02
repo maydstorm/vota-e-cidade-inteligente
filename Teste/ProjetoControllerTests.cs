@@ -32,32 +32,34 @@ namespace Teste
                 new ProjetoModel { ProjetoId = 2, Titulo = "Projeto 2"}
             };
 
-            _projetoServiceMock.Setup(service => service.GetAllProjetos(It.IsAny<int>(), It.IsAny<int>())).Returns(projetos);
+            _projetoServiceMock.Setup(service => service.GetAllProjetos()).Returns(projetos);
 
             var projetosViewModel = projetos.Select(p => new ProjetoViewModel { ProjetoId = p.ProjetoId, Titulo = p.Titulo, Descricao = p.Descricao });
-            _mapperMock.Setup(mapper => mapper.Map<IEnumerable<ProjetoViewModel>>(It.IsAny<IEnumerable<ProjetoModel>>()))
-                .Returns(projetosViewModel);
+            _mapperMock.Setup(mapper => mapper.Map<IEnumerable<ProjetoViewModel>>(It.IsAny<IEnumerable<ProjetoModel>>())).Returns(projetosViewModel);
 
             // Act
-            var result = _projetoController.GetAllProjetos(0, 10);
+            var result = _projetoController.GetAllProjetos();
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
-            var viewModel = Assert.IsType<ProjetoPaginacaoViewModel>(okResult.Value);
+            var viewModelList = Assert.IsAssignableFrom<IEnumerable<ProjetoViewModel>>(okResult.Value);
+            var projetosList = viewModelList.ToArray();
 
-            Assert.Equal(2, viewModel.Projetos.Count());
-            Assert.Equal(10, viewModel.PageSize);
-            Assert.Equal(2, viewModel.NextRef);
+            Assert.Equal(2, projetosList.Length);
+            Assert.Equal(1, projetosList[0].ProjetoId);
+            Assert.Equal("Projeto 1", projetosList[0].Titulo);
+            Assert.Equal(2, projetosList[1].ProjetoId);
+            Assert.Equal("Projeto 2", projetosList[1].Titulo);
         }
 
         [Fact]
         public void GetAllProjetos_Return_NoContent()
         {
             // Arrange
-            _projetoServiceMock.Setup(service => service.GetAllProjetos(It.IsAny<int>(), It.IsAny<int>())).Returns(new List<ProjetoModel>());
+            _projetoServiceMock.Setup(service => service.GetAllProjetos()).Returns([]);
 
             // Act
-            var result = _projetoController.GetAllProjetos(0, 10);
+            var result = _projetoController.GetAllProjetos();
 
             // Assert
             Assert.IsType<NoContentResult>(result.Result);
