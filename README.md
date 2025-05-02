@@ -41,8 +41,6 @@ O **VOTA-E** é uma plataforma cívica que permite aos cidadãos submeterem suge
 | Continuous Delivery - Staging (CD) | Push em branch `release/**`               | `staging`  |
 | Continuous Delivery - Produção (CD)| Push na branch `master`                   | `produção` |
 
-
-
 ---
 
 ## 📁 Estrutura do Projeto
