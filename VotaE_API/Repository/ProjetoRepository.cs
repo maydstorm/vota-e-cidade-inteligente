@@ -14,11 +14,10 @@ namespace VotaE_API.Repository
             _dbContext = dbContext;
         }
 
-        public IEnumerable<ProjetoModel> GetAll(int lastReference, int size)
+        public IEnumerable<ProjetoModel> GetAll()
         {
-            var projetos = _dbContext.Projetos.Where(s => s.ProjetoId > lastReference)
+            var projetos = _dbContext.Projetos
                .OrderBy(s => s.ProjetoId)
-               .Take(size)
                .AsNoTracking()
                .ToList();
 

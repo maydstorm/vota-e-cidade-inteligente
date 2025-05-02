@@ -16,9 +16,9 @@ namespace VotaE_API.Services
             _projetoRepository = projetoRepository;
         }
 
-        public IEnumerable<ProjetoModel> GetAllProjetos(int lastReference, int size)
+        public IEnumerable<ProjetoModel> GetAllProjetos()
         {
-            return _repository.GetAll(lastReference, size);
+            return _repository.GetAll();
         }
 
         public ProjetoModel GetProjetoById(int id) => _repository.GetById(id);
@@ -71,7 +71,7 @@ namespace VotaE_API.Services
 
         public ProjetoModel GetProjetoMaisVotado()
         {
-            return _repository.GetAll(0, int.MaxValue)
+            return _repository.GetAll()
                               .OrderByDescending(p => p.Votos)
                               .FirstOrDefault();
         }
