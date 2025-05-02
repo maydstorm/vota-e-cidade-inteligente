@@ -18,7 +18,6 @@ namespace VotaE_API.Controllers
         {
             _usuarioService = usuarioService;
             _mapper = mapper;
-
         }
 
         [HttpGet]

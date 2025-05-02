@@ -14,11 +14,10 @@ namespace VotaE_API.Repository
             _dbContext = dbContext;
         }
 
-        public IEnumerable<SugestaoModel> GetAll(int lastReference, int size)
+        public IEnumerable<SugestaoModel> GetAll()
         {
-            var sugestoes = _dbContext.Sugestoes.Where(s => s.SugestaoId > lastReference)
+            var sugestoes = _dbContext.Sugestoes
                 .OrderBy(s => s.SugestaoId)
-                .Take(size)
                 .AsNoTracking()
                 .ToList();
 

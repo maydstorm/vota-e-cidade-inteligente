@@ -22,22 +22,15 @@ namespace VotaE_API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<SugestaoPaginacaoViewModel>> GetAllSugestoes([FromQuery] int reference = 0, int tamanho = 10)
+        public ActionResult<IEnumerable<SugestaoViewModel>> GetAllSugestoes()
         {
-            var sugestao = _sugestaoService.GetAllSugestoes(reference, tamanho);
+            var sugestao = _sugestaoService.GetAllSugestoes();
 
             if(sugestao != null && sugestao.Any())
             {
                 var viewModelList = _mapper.Map<IEnumerable<SugestaoViewModel>>(sugestao);
-                var ViewModel = new SugestaoPaginacaoViewModel
-                {
-                    Sugestoes = viewModelList,
-                    PageSize = tamanho,
-                    Ref = reference,
-                    NextRef = (int)viewModelList.Last().SugestaoId
-                };
 
-                return Ok(ViewModel);
+                return Ok(viewModelList);
             }
             else
             {
