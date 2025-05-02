@@ -32,33 +32,35 @@ namespace Teste
             new SugestaoModel { SugestaoId = 2, Titulo = "Sugestao 2" }
             };
 
-            _sugestaoServiceMock.Setup(service => service.GetAllSugestoes(It.IsAny<int>(), It.IsAny<int>())).Returns(sugestoes);
+            _sugestaoServiceMock.Setup(service => service.GetAllSugestoes()).Returns(sugestoes);
 
             var sugestoesViewModel = sugestoes.Select(s => new SugestaoViewModel { SugestaoId = s.SugestaoId, Titulo = s.Titulo });
-            _mapperMock.Setup(mapper => mapper.Map<IEnumerable<SugestaoViewModel>>(It.IsAny<IEnumerable<SugestaoModel>>()))
-                .Returns(sugestoesViewModel);
+            _mapperMock.Setup(mapper => mapper.Map<IEnumerable<SugestaoViewModel>>(It.IsAny<IEnumerable<SugestaoModel>>())).Returns(sugestoesViewModel);
 
             // Act
-            var result = _sugestaoController.GetAllSugestoes(0, 10);
+            var result = _sugestaoController.GetAllSugestoes();
 
             //Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
-            var viewModel = Assert.IsType<SugestaoPaginacaoViewModel>(okResult.Value);
+            var viewModelList = Assert.IsAssignableFrom<IEnumerable<SugestaoViewModel>>(okResult.Value);
+            var sugestoesArray = viewModelList.ToArray();
 
-            Assert.Equal(2, viewModel.Sugestoes.Count());
-            Assert.Equal(10, viewModel.PageSize);
-            Assert.Equal(2, viewModel.NextRef);
+            Assert.Equal(2, sugestoesArray.Length);
+            Assert.Equal(1, sugestoesArray[0].SugestaoId);
+            Assert.Equal("Sugestao 1", sugestoesArray[0].Titulo);
+            Assert.Equal(2, sugestoesArray[1].SugestaoId);
+            Assert.Equal("Sugestao 2", sugestoesArray[1].Titulo);
         }
 
         [Fact]
         public void GetAllSugestoes_ReturnsNoContent()
         {
             // Arrange
-            _sugestaoServiceMock.Setup(service => service.GetAllSugestoes(It.IsAny<int>(), It.IsAny<int>()))
-                .Returns(new List<SugestaoModel>());
+            _sugestaoServiceMock.Setup(service => service.GetAllSugestoes())
+                .Returns([]);
 
             // Act
-            var result = _sugestaoController.GetAllSugestoes(0, 10);
+            var result = _sugestaoController.GetAllSugestoes();
 
             // Assert
             Assert.IsType<NoContentResult>(result.Result);
